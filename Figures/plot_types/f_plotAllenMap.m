@@ -1,60 +1,79 @@
-function f_plotAllenMap(varargin)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            f_plotAllenMap
+% author - Brad Rauscher (created 2024)
+% 
+% Plots each value in data as an allen atlas region.
+% 
+% INPUTS: f_plotAllenMap(data, varargin)
+%   data: 12-length vector for each allen atlas region
+% 
+% OPTIONAL INPUTS:
+%   mask: additional transparency mask
+%   parcellation: allen atlas parcellation
+%   cmp: colormap
+%   title: title
+%   cLabel: colorbar label
+%   clim: c-axis limits
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function f_plotAllenMap(data, varargin)
+
+% parse inputs
 p = inputParser;
-addParameter(p,'mask',[]);
-addParameter(p,'parcellation',[]);
-addParameter(p,'cmp',[]);
-addParameter(p,'title',[]);
-addParameter(p,'cLabel',[]);
-addParameter(p,'cRange',[]);
+addParameter(p, 'mask', []);
+addParameter(p, 'parcellation', []);
+addParameter(p, 'cmp', []);
+addParameter(p, 'title', []);
+addParameter(p, 'cLabel', []);
+addParameter(p, 'clim', []);
 
-parse(p,varargin{2:end});
-
-data = varargin{1};
+parse(p, varargin{:});
 
 parcellation = p.Results.parcellation;
-mask = p.Results.mask;
-cmp = p.Results.cmp;
-Title = p.Results.title;
-cLabel = p.Results.cLabel;
-cRange = p.Results.cRange;
 
-allen_path = fullfile(f_path,'Figures/plot_types/refAllen.mat');
+allen_path = fullfile(f_path, 'Figures/plot_types/refAllen.mat');
 
-if isempty(parcellation) && isempty(mask)
+if isempty(parcellation) && isempty(p.Results.mask)
     parcellation = load(allen_path);
-    mask = parcellation.refBM;
+    p.Results.mask = parcellation.refBM;
     parcellation = parcellation.refParcellation;
 elseif isempty(parcellation)
     parcellation = load(allen_path);
     parcellation = parcellation.refParcellation;
 end
 
-masks = sum(parcellation.Masks,4);
+masks = sum(parcellation.Masks, 4);
 
-if ~isempty(mask)
-    mask(isnan(mask)) = 0;
-    masks = masks.*mask;
+if ~isempty(p.Results.mask)
+    p.Results.mask(isnan(p.Results.mask)) = 0;
+    masks = masks .* p.Results.mask;
 end
 
 masks = logical(masks);
-img = NaN(size(masks,[1,2]));
+img = NaN(size(masks, [1, 2]));
 
-for i = 1:size(masks,3)
-    img(masks(:,:,i)) = data(i);
+for i = 1 : size(masks, 3)
+    img(masks(:, :, i)) = data(i);
 end
 
 imAlpha = ~isnan(img);
 
-imagesc(img,AlphaData=imAlpha);
+imagesc(img, AlphaData = imAlpha);
 axis image off;
-if ~isempty(cmp)
-    colormap(cmp);
+
+% edit colormap
+if ~isempty(p.Results.cmp)
+    colormap(p.Results.cmp);
 end
+
+% add colorbar label
 c = colorbar;
-c.Label.String = cLabel;
-title(Title);
-set(gca,'FontSize',14);
-if ~isempty(cRange)
-    clim(cRange);
+c.Label.String = p.Results.cLabel;
+
+title(p.Results.title);
+set(gca, FontSize = 14);
+
+if ~isempty(p.Results.clim)
+    clim(p.Results.clim);
 end

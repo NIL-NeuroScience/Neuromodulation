@@ -1,24 +1,46 @@
-function f_plotFC(varargin)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              f_plotFC
+% author - Brad Rauscher (created 2024)
+% 
+% Plots functional connectivity matrix.
+% 
+% INPUTS: f_plotFC(map, diagVal, varargin)
+%   map: connectivity matrix
+%   diagVal: value to replace diagonal values with
+% 
+% OPTIONAL INPUTS:
+%   cmp: colormap
+%   clim: c-axis limits
+%   clabel: colorbar label
+%   title: title
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-map = varargin{1};
-diagVal = varargin{2};
-map(diag(true(12,1))) = diagVal;
+function f_plotFC(map, diagVal, varargin)
 
+% adjust diagonal values
+map(diag(true(12, 1))) = diagVal;
+
+% parse inputs
 p = inputParser;
-addParameter(p,'cmp',jet);
-addParameter(p,'bounds',[0,1]);
-addParameter(p,'clabel','');
-addParameter(p,'title','');
+addParameter(p, 'cmp', jet);
+addParameter(p, 'clim', [0,1]);
+addParameter(p, 'clabel' ,'');
+addParameter(p, 'title' ,'');
 
-parse(p,varargin{3:end});
+parse(p, varargin{:});
 
+hold on;
 imagesc(map);
 axis image off;
+
 c = colorbar;
 colormap(p.Results.cmp);
-clim(p.Results.bounds);
-title(p.Results.title);
+clim(p.Results.clim);
 c.Label.String = p.Results.clabel;
-set(gca,'FontSize',14);
+
+title(p.Results.title);
+
+set(gca, FontSize = 14);
 
 end

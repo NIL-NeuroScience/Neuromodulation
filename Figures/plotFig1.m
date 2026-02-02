@@ -205,7 +205,7 @@ T = table({order.Mouse}', barData{1}, barData{2}, barData{3}, ...
     VariableNames={'Mouse','global','SSp','variant'});
 writetable(T, fullfile(fig_savePath, 'Figure1_F.csv'));
 
-p = f_SRtest(barData,0.05);
+[h, p] = f_SRtest(barData,0.05);
 T = table(p(:,1),p(:,2),p(:,3), ...
     VariableNames={'global','SSp','variant'});
 writetable(T, fullfile(fig_savePath, 'Figure1_F_p.csv'));
@@ -255,19 +255,3 @@ f = figure(Position = [100, 100, 500, 400]);
 f_plotAllenMap(std(subAvg.Fig1.SSp_perf_vs_GRAB_global(:,NE_Idx),0,2)/sqrt(sum(NE_Idx)),cmp=cmpinf,cLabel='SEM',mask=plotBM,cRange=[0, 0.1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'Figure1_J.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-
-%% dont know
-
-% cmp = cmpinf;
-% % cmp = cmp(1:end-20,:);
-% cmp = c_GRAB;
-% X = cell(1);
-% Y = cell(1);
-% X{1} = grab(1:6000,5);
-% Y{1} = Ca(1:6000,5);
-% X{2} = grab(1:6000,5);
-% Y{2} = Ca(1:6000,5);
-% f = figure(Position=[100 100 500 450]);
-% f_multiScatter(X,Y,cmp=cmp,alpha=0.1,lineWidth=2,xlim=[-6 8],ylim=[-10 15],ylabel='r',xlabel='NE');
-% axis off;
-
