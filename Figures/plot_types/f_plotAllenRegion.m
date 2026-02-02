@@ -28,12 +28,13 @@ addParameter(p, 'lineWidth', 1);
 parse(p, varargin{:});
 
 parcellation = p.Results.parcellation;
+mask = p.Results.mask;
 
 allen_path = fullfile(f_path, 'Figures/plot_types/refAllen.mat');
 
-if isempty(parcellation) && isempty(p.Results.mask)
+if isempty(parcellation) && isempty(mask)
     parcellation = load(allen_path);
-    p.Results.mask = parcellation.refBM;
+    mask = parcellation.refBM;
     parcellation = parcellation.refParcellation;
 elseif isempty(parcellation)
     parcellation = load(allen_path);
@@ -46,9 +47,9 @@ else
     masks = parcellation.Masks(:, :, region, side);
 end
 
-if ~isempty(p.Results.mask)
-    p.Results.mask(isnan(p.Results.mask)) = 0;
-    masks = masks .* p.Results.mask;
+if ~isempty(mask)
+    mask(isnan(mask)) = 0;
+    masks = masks .* mask;
 end
 
 bound = bwboundaries(masks);

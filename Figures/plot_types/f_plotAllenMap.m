@@ -31,6 +31,7 @@ addParameter(p, 'clim', []);
 parse(p, varargin{:});
 
 parcellation = p.Results.parcellation;
+mask = p.Results.mask;
 
 allen_path = fullfile(f_path, 'Figures/plot_types/refAllen.mat');
 
@@ -45,9 +46,10 @@ end
 
 masks = sum(parcellation.Masks, 4);
 
-if ~isempty(p.Results.mask)
-    p.Results.mask(isnan(p.Results.mask)) = 0;
-    masks = masks .* p.Results.mask;
+if ~isempty(mask)
+    
+    mask(isnan(mask)) = 0;
+    masks = masks .* mask;
 end
 
 masks = logical(masks);

@@ -1,4 +1,6 @@
-%% load data
+close all
+
+% load data
 parentDir = f_path();
 filePath = fullfile(parentDir,'Figures/results/Blocker/blocker_metadata.mat');
 load(filePath);
@@ -14,7 +16,7 @@ plotBM(:,1:300) = NaN;
 
 %% order metadata
 
-[sessions,ImagingOrder,log] = f_orderMeta(metadata);
+[E6_sessions,E6_ImagingOrder,E6_log] = f_orderMeta(metadata);
 
 %% create placeholder matrices
 
@@ -24,20 +26,20 @@ IRF_width = 101;
 
 comb = struct;
 
-comb.BM = cell(numel(sessions),1);
-comb.allen = cell(numel(sessions),1);
+comb.BM = cell(numel(E6_sessions),1);
+comb.allen = cell(numel(E6_sessions),1);
 
-comb.IRFx1.perf = cell(numel(sessions),1);
-comb.IRFx1_var.perf = cell(numel(sessions),1);
+comb.IRFx1.perf = cell(numel(E6_sessions),1);
+comb.IRFx1_var.perf = cell(numel(E6_sessions),1);
 
-comb.IRFx1.IRF = NaN(IRF_width,numel(sessions));
-comb.IRFx1_var.IRF = NaN(IRF_width,12,numel(sessions));
+comb.IRFx1.IRF = NaN(IRF_width,numel(E6_sessions));
+comb.IRFx1_var.IRF = NaN(IRF_width,12,numel(E6_sessions));
 
-comb.SPC.HbT = NaN(n_fr,numel(sessions));
-comb.COH.Ca_HbT = NaN(n_fr,numel(sessions));
-comb.XC.Ca_HbT = NaN(101,numel(sessions));
+comb.SPC.HbT = NaN(n_fr,numel(E6_sessions));
+comb.COH.Ca_HbT = NaN(n_fr,numel(E6_sessions));
+comb.XC.Ca_HbT = NaN(101,numel(E6_sessions));
 
-comb.COH.Ca_HbT_allen = NaN(n_fr,12,numel(sessions));
+comb.COH.Ca_HbT_allen = NaN(n_fr,12,numel(E6_sessions));
 
 mice = fieldnames(metadata);
 
@@ -92,64 +94,62 @@ end
 %% register to allen atlas
 
 comb.BM = f_regImages(comb.BM,refParcellation,comb.allen,1);
-BM = comb.BM;
+E6_BM = comb.BM;
 
-comb.IRFx1.perf = f_regImages(comb.IRFx1.perf,refParcellation,comb.allen,0).*BM;
-comb.IRFx1_var.perf = f_regImages(comb.IRFx1_var.perf,refParcellation,comb.allen,0).*BM;
+comb.IRFx1.perf = f_regImages(comb.IRFx1.perf,refParcellation,comb.allen,0).*E6_BM;
+comb.IRFx1_var.perf = f_regImages(comb.IRFx1_var.perf,refParcellation,comb.allen,0).*E6_BM;
 
 %% combine mice
 
-tmpSubAvg = struct;
-tmpSubAvg.IRFx1.perf = NaN([size(refBM) m]);
-tmpSubAvg.IRFx1_var.perf = NaN([size(refBM) m]);
+subAvg.FigE6 = struct;
+subAvg.FigE6.IRFx1.perf = NaN([size(refBM) m]);
+subAvg.FigE6.IRFx1_var.perf = NaN([size(refBM) m]);
 
-tmpSubAvg.IRFx1.IRF = NaN(IRF_width,m);
-tmpSubAvg.IRFx1_var.IRF = NaN(IRF_width,12,m);
+subAvg.FigE6.IRFx1.IRF = NaN(IRF_width,m);
+subAvg.FigE6.IRFx1_var.IRF = NaN(IRF_width,12,m);
 
-tmpSubAvg.SPC.HbT = NaN(n_fr,m);
-tmpSubAvg.COH.Ca_HbT = NaN(n_fr,m);
-tmpSubAvg.COH.Ca_HbT_allen = NaN(n_fr,12,m);
-tmpSubAvg.XC.Ca_HbT = NaN(101,m);
-
-subAvg = struct;
+subAvg.FigE6.SPC.HbT = NaN(n_fr,m);
+subAvg.FigE6.COH.Ca_HbT = NaN(n_fr,m);
+subAvg.FigE6.COH.Ca_HbT_allen = NaN(n_fr,12,m);
+subAvg.FigE6.XC.Ca_HbT = NaN(101,m);
 
 remove = 1:2;
 for idx = 1:m
-    tIdx = zeros(numel(log),1);
-    tIdx(ImagingOrder(idx).runs) = 1;
-    tIdx = logical(tIdx.*(~ismember([log.Run],remove))');
-    tmpSubAvg.IRFx1.perf(:,:,idx) = mean(comb.IRFx1.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
-    tmpSubAvg.IRFx1_var.perf(:,:,idx) = mean(comb.IRFx1_var.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
+    tIdx = zeros(numel(E6_log),1);
+    tIdx(E6_ImagingOrder(idx).runs) = 1;
+    tIdx = logical(tIdx.*(~ismember([E6_log.Run],remove))');
+    subAvg.FigE6.IRFx1.perf(:,:,idx) = mean(comb.IRFx1.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
+    subAvg.FigE6.IRFx1_var.perf(:,:,idx) = mean(comb.IRFx1_var.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
     
-    tmpSubAvg.IRFx1.IRF(:,idx) = mean(comb.IRFx1.IRF(:,tIdx),2);
-    tmpSubAvg.IRFx1_var.IRF(:,:,idx) = mean(comb.IRFx1_var.IRF(:,:,tIdx),3);
+    subAvg.FigE6.IRFx1.IRF(:,idx) = mean(comb.IRFx1.IRF(:,tIdx),2);
+    subAvg.FigE6.IRFx1_var.IRF(:,:,idx) = mean(comb.IRFx1_var.IRF(:,:,tIdx),3);
 
-    tmpSubAvg.SPC.HbT(:,idx) = mean(comb.SPC.HbT(:,tIdx),2);
-    tmpSubAvg.COH.Ca_HbT(:,idx) = mean(comb.COH.Ca_HbT(:,tIdx),2);
-    tmpSubAvg.COH.Ca_HbT_allen(:,:,idx) = mean(comb.COH.Ca_HbT_allen(:,:,tIdx),3);
-    tmpSubAvg.XC.Ca_HbT(:,idx) = mean(comb.XC.Ca_HbT(:,tIdx),2);
+    subAvg.FigE6.SPC.HbT(:,idx) = mean(comb.SPC.HbT(:,tIdx),2);
+    subAvg.FigE6.COH.Ca_HbT(:,idx) = mean(comb.COH.Ca_HbT(:,tIdx),2);
+    subAvg.FigE6.COH.Ca_HbT_allen(:,:,idx) = mean(comb.COH.Ca_HbT_allen(:,:,tIdx),3);
+    subAvg.FigE6.XC.Ca_HbT(:,idx) = mean(comb.XC.Ca_HbT(:,tIdx),2);
 end
 
-subAvg.post = tmpSubAvg;
+subAvg.post = subAvg.FigE6;
 
 remove = 3:8;
 for idx = 1:m
-    tIdx = zeros(numel(log),1);
-    tIdx(ImagingOrder(idx).runs) = 1;
-    tIdx = logical(tIdx.*(~ismember([log.Run],remove))');
-    tmpSubAvg.IRFx1.perf(:,:,idx) = mean(comb.IRFx1.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
-    tmpSubAvg.IRFx1_var.perf(:,:,idx) = mean(comb.IRFx1_var.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
+    tIdx = zeros(numel(E6_log),1);
+    tIdx(E6_ImagingOrder(idx).runs) = 1;
+    tIdx = logical(tIdx.*(~ismember([E6_log.Run],remove))');
+    subAvg.FigE6.IRFx1.perf(:,:,idx) = mean(comb.IRFx1.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
+    subAvg.FigE6.IRFx1_var.perf(:,:,idx) = mean(comb.IRFx1_var.perf(:,:,tIdx).*comb.BM(:,:,tIdx),3,'omitnan');
     
-    tmpSubAvg.IRFx1.IRF(:,idx) = mean(comb.IRFx1.IRF(:,tIdx),2);
-    tmpSubAvg.IRFx1_var.IRF(:,:,idx) = mean(comb.IRFx1_var.IRF(:,:,tIdx),3);
+    subAvg.FigE6.IRFx1.IRF(:,idx) = mean(comb.IRFx1.IRF(:,tIdx),2);
+    subAvg.FigE6.IRFx1_var.IRF(:,:,idx) = mean(comb.IRFx1_var.IRF(:,:,tIdx),3);
 
-    tmpSubAvg.SPC.HbT(:,idx) = mean(comb.SPC.HbT(:,tIdx),2);
-    tmpSubAvg.COH.Ca_HbT(:,idx) = mean(comb.COH.Ca_HbT(:,tIdx),2);
-    tmpSubAvg.COH.Ca_HbT_allen(:,:,idx) = mean(comb.COH.Ca_HbT_allen(:,:,tIdx),3);
-    tmpSubAvg.XC.Ca_HbT(:,idx) = mean(comb.XC.Ca_HbT(:,tIdx),2);
+    subAvg.FigE6.SPC.HbT(:,idx) = mean(comb.SPC.HbT(:,tIdx),2);
+    subAvg.FigE6.COH.Ca_HbT(:,idx) = mean(comb.COH.Ca_HbT(:,tIdx),2);
+    subAvg.FigE6.COH.Ca_HbT_allen(:,:,idx) = mean(comb.COH.Ca_HbT_allen(:,:,tIdx),3);
+    subAvg.FigE6.XC.Ca_HbT(:,idx) = mean(comb.XC.Ca_HbT(:,tIdx),2);
 end
 
-subAvg.baseline = tmpSubAvg;
+subAvg.baseline = subAvg.FigE6;
 
 %% plot FigBlocker B
 
@@ -280,17 +280,17 @@ fr_Range = fr_Range(fr_Idx,:);
 [~,fr_Range] = min(abs(fr'-fr_Range));
 
 sig = squeeze(mean(subAvg.baseline.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,cRange=[0,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,clim=[0,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_baseLow.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 sig = squeeze(mean(subAvg.post.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,cRange=[0,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,clim=[0,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_postLow.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 sig = squeeze(mean(subAvg.post.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1))-squeeze(mean(subAvg.baseline.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpbbr,mask=plotBM,cRange=0.3*[-1,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpbbr,mask=plotBM,clim=0.3*[-1,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_diffLow.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
@@ -302,17 +302,17 @@ fr_Range = fr_Range(fr_Idx,:);
 [~,fr_Range] = min(abs(fr'-fr_Range));
 
 sig = squeeze(mean(subAvg.baseline.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,cRange=[0,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,clim=[0,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_baseHigh.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 sig = squeeze(mean(subAvg.post.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,cRange=[0,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpinf,mask=plotBM,clim=[0,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_postHigh.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 sig = squeeze(mean(subAvg.post.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1))-squeeze(mean(subAvg.baseline.COH.Ca_HbT_allen(fr_Range(1):fr_Range(2),:,:),1));
-f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpbbr,mask=plotBM,cRange=0.3*[-1,1]);
+f = figure;f_plotAllenMap(mean(sig,2),cmp=cmpbbr,mask=plotBM,clim=0.3*[-1,1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig6_E_diffHigh.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 

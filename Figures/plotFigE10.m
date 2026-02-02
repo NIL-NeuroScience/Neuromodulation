@@ -1,15 +1,15 @@
-
+close all
 
 load(fullfile(f_path,'Figures/results/HD/HD_metadata.mat'),'metadata');
 
 mice = fieldnames(metadata);
 
-subAvg.HD.XC_gfp_HD_HbT_low = NaN(201,numel(mice));
-subAvg.HD.R_gfp_HD_HbT_low = cell(3,1);
+subAvg.FigE10.XC_gfp_HD_HbT_low = NaN(201,numel(mice));
+subAvg.FigE10.R_gfp_HD_HbT_low = cell(3,1);
 
 for i = 1:3
-    subAvg.HD.XC_gfp_HD_HbT_low(:,i) = mean([metadata.(mice{i}).XC_gfp_HD_HbT_low],2);
-    subAvg.HD.R_gfp_HD_HbT_low{i} = mean(cat(3,metadata.(mice{i}).R_gfp_HD_HbT_low),3);
+    subAvg.FigE10.XC_gfp_HD_HbT_low(:,i) = mean([metadata.(mice{i}).XC_gfp_HD_HbT_low],2);
+    subAvg.FigE10.R_gfp_HD_HbT_low{i} = mean(cat(3,metadata.(mice{i}).R_gfp_HD_HbT_low),3);
 end
 
 fig_savePath = fullfile(savePath,'ExtDataFig10');
@@ -183,14 +183,14 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig10_H.csv'));
 t = 10:-0.1:-10;
 
 f = figure;
-meanSig1 = mean(subAvg.Beh.XC_gfp_HD_HbT(:,NE_Idx),2);
-error1 = std(subAvg.Beh.XC_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig1 = mean(subAvg.FigE2.XC_gfp_HD_HbT(:,NE_Idx),2);
+error1 = std(subAvg.FigE2.XC_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(t,meanSig1,error1,color=c_GRAB);
-meanSig2 = mean(subAvg.Beh.XC_gfp_HD_HbT(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.XC_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.XC_gfp_HD_HbT(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.XC_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(t,meanSig2,error2,color=c_Orange);
-meanSig3 = mean(subAvg.HD.XC_gfp_HD_HbT_low,2);
-error3 = std(subAvg.HD.XC_gfp_HD_HbT_low,0,2)/sqrt(3);
+meanSig3 = mean(subAvg.FigE10.XC_gfp_HD_HbT_low,2);
+error3 = std(subAvg.FigE10.XC_gfp_HD_HbT_low,0,2)/sqrt(3);
 f_plotLineError(t,meanSig3,error3,color=0.5*[1,1,1],lineWidth=3);
 xlim([-5 5]);
 ylim(0.6*[-1,1]);
@@ -208,7 +208,7 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig10_I.csv'));
 %%
 
 f = figure;
-f_plotMap(mean(subAvg.Beh.R_gfp_HD_HbT(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpbbr,bounds=1*[-1 1],title='NE vs. Ca^2^+',clabel='r');
+f_plotMap(mean(subAvg.FigE2.R_gfp_HD_HbT(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpbbr,clim=1*[-1 1],title='NE vs. Ca^2^+',clabel='r');
 for i = 1:12
     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 end

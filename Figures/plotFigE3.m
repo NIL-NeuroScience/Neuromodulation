@@ -1,3 +1,5 @@
+close all
+
 % calculate subject averages
 
 NE_order = order(NE_Idx);
@@ -16,44 +18,44 @@ tmp.HbO.LR_B = f_regImages(Hb_model.HbO_LR_B,refParcellation,settings.allen_mask
 tmp.HbO.IRFx2_A = f_regImages(Hb_model.HbO_IRFx2_A,refParcellation,settings.allen_masks,0).*BM;
 tmp.HbO.IRFx2_B = f_regImages(Hb_model.HbO_IRFx2_B,refParcellation,settings.allen_masks,0).*BM;
 
-subAvg.Hb.LR_perf = NaN(500,600,numel(NE_order));
-subAvg.Hb.IRFx2_perf = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.LR_perf = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.IRFx2_perf = NaN(500,600,numel(NE_order));
 subAvg.Fig2.LR_perf = NaN(500,600,numel(NE_order));
 subAvg.Fig2.IRFx2_perf = NaN(500,600,numel(NE_order));
-subAvg.Hb.LR_A = NaN(500,600,numel(NE_order));
-subAvg.Hb.LR_B = NaN(500,600,numel(NE_order));
-subAvg.Hb.IRFx2_A = NaN(500,600,numel(NE_order));
-subAvg.Hb.IRFx2_B = NaN(500,600,numel(NE_order));
-subAvg.Hb.tA = NaN(numel(NE_order),1);
-subAvg.Hb.tB = NaN(numel(NE_order),1);
-subAvg.Hb.IRFx2_IRF = NaN(151,2,numel(NE_order));
-subAvg.HbO.LR_A = NaN(500,600,numel(NE_order));
-subAvg.HbO.LR_B = NaN(500,600,numel(NE_order));
-subAvg.HbO.IRFx2_A = NaN(500,600,numel(NE_order));
-subAvg.HbO.IRFx2_B = NaN(500,600,numel(NE_order));
-subAvg.HbO.tA = NaN(numel(NE_order),1);
-subAvg.HbO.tB = NaN(numel(NE_order),1);
-subAvg.HbO.IRFx2_IRF = NaN(151,2,numel(NE_order));
+subAvg.FigE3.Hb.LR_A = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.LR_B = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.IRFx2_A = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.IRFx2_B = NaN(500,600,numel(NE_order));
+subAvg.FigE3.Hb.tA = NaN(numel(NE_order),1);
+subAvg.FigE3.Hb.tB = NaN(numel(NE_order),1);
+subAvg.FigE3.Hb.IRFx2_IRF = NaN(151,2,numel(NE_order));
+subAvg.FigE3.HbO.LR_A = NaN(500,600,numel(NE_order));
+subAvg.FigE3.HbO.LR_B = NaN(500,600,numel(NE_order));
+subAvg.FigE3.HbO.IRFx2_A = NaN(500,600,numel(NE_order));
+subAvg.FigE3.HbO.IRFx2_B = NaN(500,600,numel(NE_order));
+subAvg.FigE3.HbO.tA = NaN(numel(NE_order),1);
+subAvg.FigE3.HbO.tB = NaN(numel(NE_order),1);
+subAvg.FigE3.HbO.IRFx2_IRF = NaN(151,2,numel(NE_order));
 
 for i = 1:numel(NE_order)
-    subAvg.Hb.LR_perf(:,:,i) = mean(tmp.Hb.LR_perf(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.IRFx2_perf(:,:,i) = mean(tmp.Hb.IRFx2_perf(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.LR_perf(:,:,i) = mean(tmp.HbO.LR_perf(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.IRFx2_perf(:,:,i) = mean(tmp.HbO.IRFx2_perf(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.LR_A(:,:,i) = mean(tmp.Hb.LR_A(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.LR_B(:,:,i) = mean(tmp.Hb.LR_B(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.IRFx2_A(:,:,i) = mean(tmp.Hb.IRFx2_A(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.IRFx2_B(:,:,i) = mean(tmp.Hb.IRFx2_B(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.Hb.LR_tA(i) = mean([Hb_model.Hb_LR_tA{NE_order(i).Runs}]);
-    subAvg.Hb.LR_tB(i) = mean([Hb_model.Hb_LR_tB{NE_order(i).Runs}]);
-    subAvg.Hb.IRFx2_IRF(:,:,i) = mean(cat(3,Hb_model.Hb_IRFx2_IRF{NE_order(i).Runs}),3);
-    subAvg.HbO.LR_A(:,:,i) = mean(tmp.HbO.LR_A(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.LR_B(:,:,i) = mean(tmp.HbO.LR_B(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.IRFx2_A(:,:,i) = mean(tmp.HbO.IRFx2_A(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.IRFx2_B(:,:,i) = mean(tmp.HbO.IRFx2_B(:,:,NE_order(i).Runs),3,'omitnan');
-    subAvg.HbO.LR_tA(i) = mean([Hb_model.HbO_LR_tA{NE_order(i).Runs}]);
-    subAvg.HbO.LR_tB(i) = mean([Hb_model.HbO_LR_tB{NE_order(i).Runs}]);
-    subAvg.HbO.IRFx2_IRF(:,:,i) = mean(cat(3,Hb_model.HbO_IRFx2_IRF{NE_order(i).Runs}),3);
+    subAvg.FigE3.Hb.LR_perf(:,:,i) = mean(tmp.Hb.LR_perf(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.IRFx2_perf(:,:,i) = mean(tmp.Hb.IRFx2_perf(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.LR_perf(:,:,i) = mean(tmp.HbO.LR_perf(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.IRFx2_perf(:,:,i) = mean(tmp.HbO.IRFx2_perf(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.LR_A(:,:,i) = mean(tmp.Hb.LR_A(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.LR_B(:,:,i) = mean(tmp.Hb.LR_B(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.IRFx2_A(:,:,i) = mean(tmp.Hb.IRFx2_A(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.IRFx2_B(:,:,i) = mean(tmp.Hb.IRFx2_B(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.Hb.LR_tA(i) = mean([Hb_model.Hb_LR_tA{NE_order(i).Runs}]);
+    subAvg.FigE3.Hb.LR_tB(i) = mean([Hb_model.Hb_LR_tB{NE_order(i).Runs}]);
+    subAvg.FigE3.Hb.IRFx2_IRF(:,:,i) = mean(cat(3,Hb_model.Hb_IRFx2_IRF{NE_order(i).Runs}),3);
+    subAvg.FigE3.HbO.LR_A(:,:,i) = mean(tmp.HbO.LR_A(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.LR_B(:,:,i) = mean(tmp.HbO.LR_B(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.IRFx2_A(:,:,i) = mean(tmp.HbO.IRFx2_A(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.IRFx2_B(:,:,i) = mean(tmp.HbO.IRFx2_B(:,:,NE_order(i).Runs),3,'omitnan');
+    subAvg.FigE3.HbO.LR_tA(i) = mean([Hb_model.HbO_LR_tA{NE_order(i).Runs}]);
+    subAvg.FigE3.HbO.LR_tB(i) = mean([Hb_model.HbO_LR_tB{NE_order(i).Runs}]);
+    subAvg.FigE3.HbO.IRFx2_IRF(:,:,i) = mean(cat(3,Hb_model.HbO_IRFx2_IRF{NE_order(i).Runs}),3);
 end
 
 plotBM = refBM;
@@ -65,7 +67,7 @@ fig_savePath = fullfile(savePath,'ExtDataFig3');
 %% Fig HbO A
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR A',clabel='');
+f_plotMap(mean(subAvg.FigE3.HbO.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -74,7 +76,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_A1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR B',clabel='');
+f_plotMap(mean(subAvg.FigE3.HbO.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -85,8 +87,8 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_A2.jpg'),'Resolution',300,'
 %% Fig HbO B
 
 barData = {};
-barData{1} = subAvg.HbO.LR_tA / 10;
-barData{2} = subAvg.HbO.LR_tB / 10;
+barData{1} = subAvg.FigE3.HbO.LR_tA / 10;
+barData{2} = subAvg.FigE3.HbO.LR_tB / 10;
 
 f = figure;
 [meanSig, SEM] = f_plotBar(barData,colors=[c_Ca;c_GRAB],legend={'tA','tB'},ylabel='r',title='Timing Coefficients')
@@ -99,7 +101,7 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig3_B.csv'));
 %% Fig HbO C
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='LR Performance',clabel='r');
+f_plotMap(mean(subAvg.FigE3.HbO.LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='LR Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -110,7 +112,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_C.jpg'),'Resolution',300,'B
 %% Fig HbO D
 
 f = figure;
-f_plotMap((mean(subAvg.HbO.LR_perf,3,'omitnan')-mean(subAvg.Fig2.g_LR_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.FigE3.HbO.LR_perf,3,'omitnan')-mean(subAvg.Fig2.g_LR_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -121,7 +123,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_D.jpg'),'Resolution',300,'B
 %% Fig HbR E
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR A',clabel='');
+f_plotMap(mean(subAvg.FigE3.Hb.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -130,7 +132,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_E1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR B',clabel='');
+f_plotMap(mean(subAvg.FigE3.Hb.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -141,8 +143,8 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_E2.jpg'),'Resolution',300,'
 %% Fig HbR F
 
 barData = {};
-barData{1} = subAvg.Hb.LR_tA / 10;
-barData{2} = subAvg.Hb.LR_tB / 10;
+barData{1} = subAvg.FigE3.Hb.LR_tA / 10;
+barData{2} = subAvg.FigE3.Hb.LR_tB / 10;
 
 f = figure;
 [meanSig, SEM] = f_plotBar(barData,colors=[c_Ca;c_GRAB],legend={'tA','tB'},ylabel='r',title='Timing Coefficients')
@@ -156,7 +158,7 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig3_F.csv'));
 %% Fig HbR G
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='LR Performance',clabel='r');
+f_plotMap(mean(subAvg.FigE3.Hb.LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='LR Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -167,7 +169,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_G.jpg'),'Resolution',300,'B
 %% Fig HbR H
 
 f = figure;
-f_plotMap((mean(subAvg.Hb.LR_perf,3,'omitnan')-mean(subAvg.Fig2.g_LR_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.FigE3.Hb.LR_perf,3,'omitnan')-mean(subAvg.Fig2.g_LR_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -178,7 +180,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_H.jpg'),'Resolution',300,'B
 %% Fig HbO I
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 A',clabel='');
+f_plotMap(mean(subAvg.FigE3.HbO.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -187,7 +189,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_I1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 B',clabel='');
+f_plotMap(mean(subAvg.FigE3.HbO.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -198,11 +200,11 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_I2.jpg'),'Resolution',300,'
 %% Fig HbO J
 
 f = figure;
-meanSig1 = mean(subAvg.HbO.IRFx2_IRF(:,1,:),3);
-error1 = std(subAvg.HbO.IRFx2_IRF(:,1,:),0,3)/sqrt(numel(NE_order));
+meanSig1 = mean(subAvg.FigE3.HbO.IRFx2_IRF(:,1,:),3);
+error1 = std(subAvg.FigE3.HbO.IRFx2_IRF(:,1,:),0,3)/sqrt(numel(NE_order));
 f_plotLineError(-5:0.1:10,meanSig1,error1,color=c_Ca);
-meanSig2 = mean(subAvg.HbO.IRFx2_IRF(:,2,:),3);
-error2 = std(subAvg.HbO.IRFx2_IRF(:,2,:),0,3)/sqrt(numel(NE_order));
+meanSig2 = mean(subAvg.FigE3.HbO.IRFx2_IRF(:,2,:),3);
+error2 = std(subAvg.FigE3.HbO.IRFx2_IRF(:,2,:),0,3)/sqrt(numel(NE_order));
 f_plotLineError(-5:0.1:10,meanSig2,error2,color=c_GRAB);
 xlim([-2 7]);
 xlabel('Time (s)');
@@ -222,7 +224,7 @@ saveas(f, fullfile(fig_savePath, 'ExtDataFig3_J.svg'));
 %% Fig HbR K
 
 f = figure;
-f_plotMap(mean(subAvg.HbO.IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='IRFx2 Performance',clabel='r');
+f_plotMap(mean(subAvg.FigE3.HbO.IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='IRFx2 Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -233,7 +235,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_K.jpg'),'Resolution',300,'B
 %% Fig HbO L
 
 f = figure;
-f_plotMap((mean(subAvg.HbO.IRFx2_perf,3,'omitnan')-mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.FigE3.HbO.IRFx2_perf,3,'omitnan')-mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -244,7 +246,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_L.jpg'),'Resolution',300,'B
 %% Fig HbR M
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 A',clabel='');
+f_plotMap(mean(subAvg.FigE3.Hb.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -253,7 +255,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_M1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 B',clabel='');
+f_plotMap(mean(subAvg.FigE3.Hb.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -264,11 +266,11 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_M2.jpg'),'Resolution',300,'
 %% Fig HbR N
 
 f = figure;
-meanSig1 = mean(subAvg.Hb.IRFx2_IRF(:,1,:),3);
-error1 = std(subAvg.Hb.IRFx2_IRF(:,1,:),0,3)/sqrt(numel(NE_order));
+meanSig1 = mean(subAvg.FigE3.Hb.IRFx2_IRF(:,1,:),3);
+error1 = std(subAvg.FigE3.Hb.IRFx2_IRF(:,1,:),0,3)/sqrt(numel(NE_order));
 f_plotLineError(-5:0.1:10,meanSig1,error1,color=c_Ca);
-meanSig2 = mean(subAvg.Hb.IRFx2_IRF(:,2,:),3);
-error2 = std(subAvg.Hb.IRFx2_IRF(:,2,:),0,3)/sqrt(numel(NE_order));
+meanSig2 = mean(subAvg.FigE3.Hb.IRFx2_IRF(:,2,:),3);
+error2 = std(subAvg.FigE3.Hb.IRFx2_IRF(:,2,:),0,3)/sqrt(numel(NE_order));
 f_plotLineError(-5:0.1:10,meanSig2,error2,color=c_GRAB);
 xlim([-2 7]);
 xlabel('Time (s)');
@@ -287,7 +289,7 @@ saveas(f, fullfile(fig_savePath, 'ExtDataFig3_N.svg'));
 %% Fig HbR O
 
 f = figure;
-f_plotMap(mean(subAvg.Hb.IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='IRFx2 Performance',clabel='r');
+f_plotMap(mean(subAvg.FigE3.Hb.IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='IRFx2 Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -298,7 +300,7 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig3_O.jpg'),'Resolution',300,'B
 %% Fig HbR P
 
 f = figure;
-f_plotMap((mean(subAvg.Hb.IRFx2_perf,3,'omitnan')-mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.FigE3.Hb.IRFx2_perf,3,'omitnan')-mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -314,10 +316,10 @@ barData{2} = squeeze(mean(subAvg.Fig1.SSp_perf.*plotBM,[1,2],'omitnan'));
 barData{3} = squeeze(mean(subAvg.Fig1.var_perf.*plotBM,[1,2],'omitnan'));
 barData{4} = squeeze(mean(subAvg.Fig2.g_LR_perf.*plotBM,[1,2],'omitnan'));
 barData{5} = squeeze(mean(subAvg.Fig2.g_IRFx2_perf.*plotBM,[1,2],'omitnan'));
-barData{6} = squeeze(mean(subAvg.HbO.LR_perf.*plotBM,[1,2],'omitnan'));
-barData{7} = squeeze(mean(subAvg.HbO.IRFx2_perf.*plotBM,[1,2],'omitnan'));
-barData{8} = squeeze(mean(subAvg.Hb.LR_perf.*plotBM,[1,2],'omitnan'));
-barData{9} = squeeze(mean(subAvg.Hb.IRFx2_perf.*plotBM,[1,2],'omitnan'));
+barData{6} = squeeze(mean(subAvg.FigE3.HbO.LR_perf.*plotBM,[1,2],'omitnan'));
+barData{7} = squeeze(mean(subAvg.FigE3.HbO.IRFx2_perf.*plotBM,[1,2],'omitnan'));
+barData{8} = squeeze(mean(subAvg.FigE3.Hb.LR_perf.*plotBM,[1,2],'omitnan'));
+barData{9} = squeeze(mean(subAvg.FigE3.Hb.IRFx2_perf.*plotBM,[1,2],'omitnan'));
 
 f = figure;
 [dataMean, dataSEM] = f_plotBar(barData,colors=[repmat(c_Yellow,3,1);repmat(c_darkCyan,2,1);repmat(c_Ca,2,1);repmat(c_pupil,2,1)],legend={'Invariant','SSp','Variant','LR','IRFx2','HbO LR','HbO IRFx2','HbR LR','HbR IRFx2'},ylabel='r',title='Model Performance Comparison')

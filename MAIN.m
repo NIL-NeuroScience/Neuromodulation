@@ -1,12 +1,10 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%                                   MAIN
+% author - Brad Rauscher (created 2024)
 % 
-%          Main Processing Script for Neuromodulation Analysis
+% Main processing script for neurovascular coupling and neuromodulation
+% analysis.
 % 
-% Reads nwb files located at https://dandiarchive.org/dandiset/001543 and
-% performs IRF modeling, functional connectivity, and spectral analysis.
-% 
-% author - Brad Rauscher (bcraus@bu.edu)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% add path to local matNWB installation and child directories

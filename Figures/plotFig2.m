@@ -1,3 +1,5 @@
+close all
+
 % calculate subject averages
 
 NE_order = order(NE_Idx);
@@ -125,7 +127,7 @@ saveas(f, fullfile(fig_savePath, 'Figure2_A.svg'));
 %% Fig 2 B
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR A',clabel='');
+f_plotMap(mean(subAvg.Fig2.LR_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -134,7 +136,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'Figure2_B1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR B',clabel='');
+f_plotMap(mean(subAvg.Fig2.LR_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -159,7 +161,7 @@ saveas(f, fullfile(fig_savePath, 'Figure2_C.svg'));
 %% Fig 2 D
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.g_LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='LR Performance',clabel='r');
+f_plotMap(mean(subAvg.Fig2.g_LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='LR Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -170,7 +172,7 @@ exportgraphics(f, fullfile(fig_savePath,'Figure2_D.jpg'),'Resolution',300,'Backg
 %% Fig 2 E
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap((mean(subAvg.Fig2.g_LR_perf,3,'omitnan')-mean(subAvg.Fig1.inv_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.Fig2.g_LR_perf,3,'omitnan')-mean(subAvg.Fig1.inv_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='LR vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -181,7 +183,7 @@ exportgraphics(f, fullfile(fig_savePath,'Figure2_E.jpg'),'Resolution',300,'Backg
 %% Fig 2 F
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 A',clabel='');
+f_plotMap(mean(subAvg.Fig2.IRFx2_A,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 A',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -190,7 +192,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'Figure2_F1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 B',clabel='');
+f_plotMap(mean(subAvg.Fig2.IRFx2_B,3,'omitnan').*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 B',clabel='');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -226,7 +228,7 @@ saveas(f, fullfile(fig_savePath, 'Figure2_G.svg'));
 %% Fig 2 H
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='IRFx2 Performance',clabel='r');
+f_plotMap(mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='IRFx2 Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -237,7 +239,7 @@ exportgraphics(f, fullfile(fig_savePath,'Figure2_H.jpg'),'Resolution',300,'Backg
 %% Fig 2 I
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap((mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')-mean(subAvg.Fig1.inv_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,bounds=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
+f_plotMap((mean(subAvg.Fig2.g_IRFx2_perf,3,'omitnan')-mean(subAvg.Fig1.inv_perf,3,'omitnan')).*plotBM,cmp=cmpbbr,clim=[-1 1],title='IRFx2 vs. Global IRF',clabel='\Deltar');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -248,7 +250,7 @@ exportgraphics(f, fullfile(fig_savePath,'Figure2_I.jpg'),'Resolution',300,'Backg
 %% Fig 2 J
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.s_LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='Shuffled LR Performance',clabel='r');
+f_plotMap(mean(subAvg.Fig2.s_LR_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='Shuffled LR Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -257,7 +259,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'Figure2_J1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotMap(mean(subAvg.Fig2.s_IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='Shuffled IRFx2 Performance',clabel='r');
+f_plotMap(mean(subAvg.Fig2.s_IRFx2_perf,3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='Shuffled IRFx2 Performance',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end

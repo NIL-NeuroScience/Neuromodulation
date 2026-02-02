@@ -1,29 +1,31 @@
+close all
+
 % calculate subject averages
 
 NE_order = order(NE_Idx);
 
-subAvg.FC.lowF_lowNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.lowF_highNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.medF_lowNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.medF_highNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.highF_lowNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.highF_highNE_Ca = NaN(12,12,numel(NE_order));
-subAvg.FC.lowF_lowNE_HbT = NaN(12,12,numel(NE_order));
-subAvg.FC.lowF_highNE_HbT = NaN(12,12,numel(NE_order));
-subAvg.FC.medF_lowNE_HbT = NaN(12,12,numel(NE_order));
-subAvg.FC.medF_highNE_HbT = NaN(12,12,numel(NE_order));
+subAvg.FigE7.lowF_lowNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.lowF_highNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.medF_lowNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.medF_highNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.highF_lowNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.highF_highNE_Ca = NaN(12,12,numel(NE_order));
+subAvg.FigE7.lowF_lowNE_HbT = NaN(12,12,numel(NE_order));
+subAvg.FigE7.lowF_highNE_HbT = NaN(12,12,numel(NE_order));
+subAvg.FigE7.medF_lowNE_HbT = NaN(12,12,numel(NE_order));
+subAvg.FigE7.medF_highNE_HbT = NaN(12,12,numel(NE_order));
 
 for i = 1:numel(NE_order)
-    subAvg.FC.lowF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.lowF_lowNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.lowF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.lowF_highNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.medF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.medF_lowNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.medF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.medF_highNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.highF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.highF_lowNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.highF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.highF_highNE_Ca{NE_order(i).Runs}),3);
-    subAvg.FC.lowF_lowNE_HbT(:,:,i) = mean(cat(3,FC_fr.lowF_lowNE_HbT{NE_order(i).Runs}),3);
-    subAvg.FC.lowF_highNE_HbT(:,:,i) = mean(cat(3,FC_fr.lowF_highNE_HbT{NE_order(i).Runs}),3);
-    subAvg.FC.medF_lowNE_HbT(:,:,i) = mean(cat(3,FC_fr.medF_lowNE_HbT{NE_order(i).Runs}),3);
-    subAvg.FC.medF_highNE_HbT(:,:,i) = mean(cat(3,FC_fr.medF_highNE_HbT{NE_order(i).Runs}),3);
+    subAvg.FigE7.lowF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.lowF_lowNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.lowF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.lowF_highNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.medF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.medF_lowNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.medF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.medF_highNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.highF_lowNE_Ca(:,:,i) = mean(cat(3,FC_fr.highF_lowNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.highF_highNE_Ca(:,:,i) = mean(cat(3,FC_fr.highF_highNE_Ca{NE_order(i).Runs}),3);
+    subAvg.FigE7.lowF_lowNE_HbT(:,:,i) = mean(cat(3,FC_fr.lowF_lowNE_HbT{NE_order(i).Runs}),3);
+    subAvg.FigE7.lowF_highNE_HbT(:,:,i) = mean(cat(3,FC_fr.lowF_highNE_HbT{NE_order(i).Runs}),3);
+    subAvg.FigE7.medF_lowNE_HbT(:,:,i) = mean(cat(3,FC_fr.medF_lowNE_HbT{NE_order(i).Runs}),3);
+    subAvg.FigE7.medF_highNE_HbT(:,:,i) = mean(cat(3,FC_fr.medF_highNE_HbT{NE_order(i).Runs}),3);
 end
 
 plotBM = refBM;
@@ -35,16 +37,16 @@ fig_savePath = fullfile(savePath,'ExtDataFig7');
 %% Fig FC A
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_lowNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.lowF_lowNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_A1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.lowF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A1.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A1.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='High NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='High NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_A2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.lowF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A2.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A2.csv'));
 
 MouseID = {log(strcmp({log.GRAB},'GRAB_NE')).Mouse};
 g1 = cat(3,FC_fr.lowF_lowNE_Ca{strcmp({log.GRAB},'GRAB_NE')});
@@ -57,15 +59,15 @@ idx = logical(eye(12));
 h(idx(:)) = 0;
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_Ca,3)-mean(subAvg.FC.lowF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.3*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_Ca,3)-mean(subAvg.FigE7.lowF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.3*[-1 1],title='High-Low NE',clabel='\Deltar');
 f_overlayStats_FC(reshape(h,12,12));
 title('');colorbar off;
 saveas(f, fullfile(fig_savePath, 'ExtDataFig7_A3.svg'));
-writetable(table(mean(subAvg.FC.lowF_highNE_Ca,3)-mean(subAvg.FC.lowF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A3.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_highNE_Ca,3)-mean(subAvg.FigE7.lowF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_A3.csv'));
 writetable(table(reshape(p,12,12)), fullfile(fig_savePath, 'ExtDataFig7_A3_P.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_Ca,3)-mean(subAvg.FC.lowF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.3*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_Ca,3)-mean(subAvg.FigE7.lowF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.3*[-1 1],title='High-Low NE',clabel='\Deltar');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_A3.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -75,16 +77,16 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_A3.jpg'),'Resolution',300,'
 figName = 'FigFcB';
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_lowNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.medF_lowNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_B1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.medF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B1.csv'));
+writetable(table(mean(subAvg.FigE7.medF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B1.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='High NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='High NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_B2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.medF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B2.csv'));
+writetable(table(mean(subAvg.FigE7.medF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B2.csv'));
 
 MouseID = {log(strcmp({log.GRAB},'GRAB_NE')).Mouse};
 g1 = cat(3,FC_fr.medF_lowNE_Ca{strcmp({log.GRAB},'GRAB_NE')});
@@ -97,15 +99,15 @@ idx = logical(eye(12));
 h(idx(:)) = 0;
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_Ca,3)-mean(subAvg.FC.medF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.2*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_Ca,3)-mean(subAvg.FigE7.medF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.2*[-1 1],title='High-Low NE',clabel='\Deltar');
 f_overlayStats_FC(reshape(h,12,12));
 title('');colorbar off;
 saveas(f, fullfile(fig_savePath, 'ExtDataFig7_B3.svg'));
-writetable(table(mean(subAvg.FC.medF_highNE_Ca,3)-mean(subAvg.FC.medF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B3.csv'));
+writetable(table(mean(subAvg.FigE7.medF_highNE_Ca,3)-mean(subAvg.FigE7.medF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_B3.csv'));
 writetable(table(reshape(p,12,12)), fullfile(fig_savePath, 'ExtDataFig7_B3_P.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_Ca,3)-mean(subAvg.FC.medF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.2*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_Ca,3)-mean(subAvg.FigE7.medF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.2*[-1 1],title='High-Low NE',clabel='\Deltar');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_B3.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -115,16 +117,16 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_B3.jpg'),'Resolution',300,'
 figName = 'FigFcC';
 
 f = figure;
-f_plotFC(mean(subAvg.FC.highF_lowNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.highF_lowNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_C1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.highF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C1.csv'));
+writetable(table(mean(subAvg.FigE7.highF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C1.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.highF_highNE_Ca,3),1,cmp=cmpvir,bounds=[0 1],title='High NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.highF_highNE_Ca,3),1,cmp=cmpvir,clim=[0 1],title='High NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_C2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.highF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C2.csv'));
+writetable(table(mean(subAvg.FigE7.highF_highNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C2.csv'));
 
 MouseID = {log(strcmp({log.GRAB},'GRAB_NE')).Mouse};
 g1 = cat(3,FC_fr.highF_lowNE_Ca{strcmp({log.GRAB},'GRAB_NE')});
@@ -137,15 +139,15 @@ idx = logical(eye(12));
 h(idx(:)) = 0;
 
 f = figure;
-f_plotFC(mean(subAvg.FC.highF_highNE_Ca,3)-mean(subAvg.FC.highF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.highF_highNE_Ca,3)-mean(subAvg.FigE7.highF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
 f_overlayStats_FC(reshape(h,12,12));
 title('');colorbar off;
 saveas(f, fullfile(fig_savePath, 'ExtDataFig7_C3.svg'));
-writetable(table(mean(subAvg.FC.highF_highNE_Ca,3)-mean(subAvg.FC.highF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C3.csv'));
+writetable(table(mean(subAvg.FigE7.highF_highNE_Ca,3)-mean(subAvg.FigE7.highF_lowNE_Ca,3)), fullfile(fig_savePath, 'ExtDataFig7_C3.csv'));
 writetable(table(reshape(p,12,12)), fullfile(fig_savePath, 'ExtDataFig7_C3_P.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.highF_highNE_Ca,3)-mean(subAvg.FC.highF_lowNE_Ca,3),0,cmp=cmpbbr,bounds=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.highF_highNE_Ca,3)-mean(subAvg.FigE7.highF_lowNE_Ca,3),0,cmp=cmpbbr,clim=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_C3.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -155,16 +157,16 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_C3.jpg'),'Resolution',300,'
 figName = 'FigFcD';
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_lowNE_HbT,3),1,cmp=cmpvir,bounds=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.lowF_lowNE_HbT,3),1,cmp=cmpvir,clim=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_D1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.lowF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D1.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D1.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_HbT,3),1,cmp=cmpvir,bounds=[0 1],title='High NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_HbT,3),1,cmp=cmpvir,clim=[0 1],title='High NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_D2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.lowF_highNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D2.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_highNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D2.csv'));
 
 MouseID = {log(strcmp({log.GRAB},'GRAB_NE')).Mouse};
 g1 = cat(3,FC_fr.lowF_lowNE_HbT{strcmp({log.GRAB},'GRAB_NE')});
@@ -177,15 +179,15 @@ idx = logical(eye(12));
 h(idx(:)) = 0;
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_HbT,3)-mean(subAvg.FC.lowF_lowNE_HbT,3),0,cmp=cmpbbr,bounds=0.15*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_HbT,3)-mean(subAvg.FigE7.lowF_lowNE_HbT,3),0,cmp=cmpbbr,clim=0.15*[-1 1],title='High-Low NE',clabel='\Deltar');
 f_overlayStats_FC(reshape(h,12,12));
 title('');colorbar off;
 saveas(f, fullfile(fig_savePath, 'ExtDataFig7_D3.svg'));
-writetable(table(mean(subAvg.FC.lowF_highNE_HbT,3)-mean(subAvg.FC.lowF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D3.csv'));
+writetable(table(mean(subAvg.FigE7.lowF_highNE_HbT,3)-mean(subAvg.FigE7.lowF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_D3.csv'));
 writetable(table(reshape(p,12,12)), fullfile(fig_savePath, 'ExtDataFig7_D3_P.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.lowF_highNE_HbT,3)-mean(subAvg.FC.lowF_lowNE_HbT,3),0,cmp=cmpbbr,bounds=0.15*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.lowF_highNE_HbT,3)-mean(subAvg.FigE7.lowF_lowNE_HbT,3),0,cmp=cmpbbr,clim=0.15*[-1 1],title='High-Low NE',clabel='\Deltar');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_D3.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -195,16 +197,16 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_D3.jpg'),'Resolution',300,'
 figName = 'FigFcE';
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_lowNE_HbT,3),1,cmp=cmpvir,bounds=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.medF_lowNE_HbT,3),1,cmp=cmpvir,clim=[0 1],title='Low NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_E1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.medF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E1.csv'));
+writetable(table(mean(subAvg.FigE7.medF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E1.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_HbT,3),1,cmp=cmpvir,bounds=[0 1],title='High NE Ca++ Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_HbT,3),1,cmp=cmpvir,clim=[0 1],title='High NE Ca++ Connectivity',clabel='r');
 title('');colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_E2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.FC.medF_highNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E2.csv'));
+writetable(table(mean(subAvg.FigE7.medF_highNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E2.csv'));
 
 MouseID = {log(strcmp({log.GRAB},'GRAB_NE')).Mouse};
 g1 = cat(3,FC_fr.medF_lowNE_HbT{strcmp({log.GRAB},'GRAB_NE')});
@@ -217,15 +219,15 @@ idx = logical(eye(12));
 h(idx(:)) = 0;
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_HbT,3)-mean(subAvg.FC.medF_lowNE_HbT,3),0,cmp=cmpbbr,bounds=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_HbT,3)-mean(subAvg.FigE7.medF_lowNE_HbT,3),0,cmp=cmpbbr,clim=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
 f_overlayStats_FC(reshape(h,12,12));
 title('');colorbar off;
 saveas(f, fullfile(fig_savePath, 'ExtDataFig7_E3.svg'));
-writetable(table(mean(subAvg.FC.medF_highNE_HbT,3)-mean(subAvg.FC.medF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E3.csv'));
+writetable(table(mean(subAvg.FigE7.medF_highNE_HbT,3)-mean(subAvg.FigE7.medF_lowNE_HbT,3)), fullfile(fig_savePath, 'ExtDataFig7_E3.csv'));
 writetable(table(reshape(p,12,12)), fullfile(fig_savePath, 'ExtDataFig7_E3_P.csv'));
 
 f = figure;
-f_plotFC(mean(subAvg.FC.medF_highNE_HbT,3)-mean(subAvg.FC.medF_lowNE_HbT,3),0,cmp=cmpbbr,bounds=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
+f_plotFC(mean(subAvg.FigE7.medF_highNE_HbT,3)-mean(subAvg.FigE7.medF_lowNE_HbT,3),0,cmp=cmpbbr,clim=0.1*[-1 1],title='High-Low NE',clabel='\Deltar');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_E3.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -234,23 +236,23 @@ exportgraphics(f, fullfile(fig_savePath,'ExtDataFig7_E3.jpg'),'Resolution',300,'
 
 regions = [2,5,12];
 
-allenCaLow = mean(subAvg.FC.lowF_lowNE_Ca,3);
+allenCaLow = mean(subAvg.FigE7.lowF_lowNE_Ca,3);
 allenCaLow = allenCaLow(regions,:);
-allenCaHigh = mean(subAvg.FC.lowF_highNE_Ca,3);
+allenCaHigh = mean(subAvg.FigE7.lowF_highNE_Ca,3);
 allenCaHigh = allenCaHigh(regions,:);
 
 for i = 1:3
-    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_F%01i_low.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_F%01i_high.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,cRange=0.3*[-1,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,clim=0.3*[-1,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=0.7*[1 1 1]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_F%01i_diff.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -260,25 +262,25 @@ end
 
 regions = [2,5,12];
 
-allenCaLow = mean(subAvg.FC.medF_lowNE_Ca,3);
+allenCaLow = mean(subAvg.FigE7.medF_lowNE_Ca,3);
 allenCaLow = allenCaLow(regions,:);
-allenCaHigh = mean(subAvg.FC.medF_highNE_Ca,3);
+allenCaHigh = mean(subAvg.FigE7.medF_highNE_Ca,3);
 allenCaHigh = allenCaHigh(regions,:);
 
 figName = 'FigFcG';
 
 for i = 1:3
-    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_G%01i_low.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_G%01i_high.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,cRange=0.2*[-1,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,clim=0.2*[-1,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=0.7*[1 1 1]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_G%01i_diff.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -289,25 +291,25 @@ end
 
 regions = [2,5,12];
 
-allenCaLow = mean(subAvg.FC.highF_lowNE_Ca,3);
+allenCaLow = mean(subAvg.FigE7.highF_lowNE_Ca,3);
 allenCaLow = allenCaLow(regions,:);
-allenCaHigh = mean(subAvg.FC.highF_highNE_Ca,3);
+allenCaHigh = mean(subAvg.FigE7.highF_highNE_Ca,3);
 allenCaHigh = allenCaHigh(regions,:);
 
 figName = 'FigFcH';
 
 for i = 1:3
-    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_H%01i_low.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_H%01i_high.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,cRange=0.1*[-1,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,clim=0.1*[-1,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=0.7*[1 1 1]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_H%01i_diff.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -318,25 +320,25 @@ end
 
 regions = [2,5,12];
 
-allenCaLow = mean(subAvg.FC.lowF_lowNE_HbT,3);
+allenCaLow = mean(subAvg.FigE7.lowF_lowNE_HbT,3);
 allenCaLow = allenCaLow(regions,:);
-allenCaHigh = mean(subAvg.FC.lowF_highNE_HbT,3);
+allenCaHigh = mean(subAvg.FigE7.lowF_highNE_HbT,3);
 allenCaHigh = allenCaHigh(regions,:);
 
 figName = 'FigFcI';
 
 for i = 1:3
-    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_I%01i_low.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_I%01i_high.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,cRange=0.15*[-1,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,clim=0.15*[-1,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=0.7*[1 1 1]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_I%01i_diff.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
@@ -347,25 +349,25 @@ end
 
 regions = [2,5,12];
 
-allenCaLow = mean(subAvg.FC.medF_lowNE_HbT,3);
+allenCaLow = mean(subAvg.FigE7.medF_lowNE_HbT,3);
 allenCaLow = allenCaLow(regions,:);
-allenCaHigh = mean(subAvg.FC.medF_highNE_HbT,3);
+allenCaHigh = mean(subAvg.FigE7.medF_highNE_HbT,3);
 allenCaHigh = allenCaHigh(regions,:);
 
 figName = 'FigFcJ';
 
 for i = 1:3
-    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaLow(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_J%01i_low.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,cRange=[0,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:),cmp=cmpvir,mask=plotBM,clim=[0,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=[0 0 0]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_J%01i_high.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);
 
-    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,cRange=0.1*[-1,1]);
+    f = figure;f_plotAllenMap(allenCaHigh(i,:)-allenCaLow(i,:),cmp=cmpbbr,mask=plotBM,clim=0.1*[-1,1]);
     f_plotAllenRegion(regions(i),2,linewidth=3,color=0.7*[1 1 1]);
     colorbar off;
     exportgraphics(f, fullfile(fig_savePath,sprintf('ExtDataFig7_J%01i_diff.jpg',i)),'Resolution',300,'BackgroundColor',[1 1 1]);

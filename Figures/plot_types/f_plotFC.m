@@ -41,6 +41,8 @@ c.Label.String = p.Results.clabel;
 
 title(p.Results.title);
 
-set(gca, FontSize = 14);
+set(gca, ...
+    FontSize = 14, ...
+    YDir = 'reverse');
 
 end

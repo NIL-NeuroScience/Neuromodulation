@@ -1,35 +1,56 @@
-%% organize data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             MAIN_plotFigures
+% author - Brad Rauscher (created 2024)
+% 
+% Plots figures for data generated from main.m
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 parentDir = f_path();
 addPaths(parentDir);
-dataPath = [parentDir, '/analysis_final'];
+dataPath = [parentDir, '/analysis'];
+savePath = fullfile(parentDir, 'results');
 
+% load and organize data
 [log, order, settings, Fig1, Fig2, Fig3, Behavior, Hb_model, ...
     unfiltered, shuffled, NE_reg, spectra, FC_fr, GRAB_FC] = ...
     f_organizeData(dataPath);
 
+% load reference allen atlas
 load(fullfile(parentDir, 'Figures/plot_types/refAllen.mat'));
+
+% register brain masks to allen atlas
+BM = f_regImages(settings.brain_mask, refParcellation, ...
+    settings.allen_masks, 1);
 
 M = numel(order);
 
-BM = f_regImages(settings.brain_mask, refParcellation, ...
-    settings.allen_masks, 1);
 NE_Idx = strcmp({order.GRAB}, 'GRAB_NE');
 ACh_Idx = strcmp({order.GRAB}, 'GRAB_ACh');
-
-set(0, 'defaultfigurecolor', [1, 1, 1]);
 
 M_NE = sum(NE_Idx);
 M_ACh = sum(ACh_Idx);
 
-savePath = fullfile(parentDir, 'results');
+subAvg = struct;
+
+set(0, 'defaultfigurecolor', [1, 1, 1]);
 
 %% plot Main figures
 plotFig1
 plotFig2
+plotFig3
 
-%% plot Supplementary figures
-
+%% plot Extended Data figures
+plotFigE1
+plotFigE2
+plotFigE3
+plotFigE4
+plotFigE5
+plotFigE6
+plotFigE7
+plotFigE8
+plotFigE9
+plotFigE10
 
 %% EXTRA FUNCTIONS
 

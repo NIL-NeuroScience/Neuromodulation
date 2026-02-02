@@ -1,3 +1,4 @@
+close all
 
 % calculate subject averages
 
@@ -245,13 +246,13 @@ writetable(T, fullfile(fig_savePath, 'Figure1_G2.csv'));
 %% plot 1H
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotAllenMap(mean(subAvg.Fig1.SSp_perf_vs_GRAB_global(:,NE_Idx),2),cmp=cmpbbr,cLabel='r',mask=plotBM,cRange=[-0.3, 0.3]);
+f_plotAllenMap(mean(subAvg.Fig1.SSp_perf_vs_GRAB_global(:,NE_Idx),2),cmp=cmpbbr,cLabel='r',mask=plotBM,clim=[-0.3, 0.3]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'Figure1_H.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 %% plot 1J
 
 f = figure(Position = [100, 100, 500, 400]);
-f_plotAllenMap(std(subAvg.Fig1.SSp_perf_vs_GRAB_global(:,NE_Idx),0,2)/sqrt(sum(NE_Idx)),cmp=cmpinf,cLabel='SEM',mask=plotBM,cRange=[0, 0.1]);
+f_plotAllenMap(std(subAvg.Fig1.SSp_perf_vs_GRAB_global(:,NE_Idx),0,2)/sqrt(sum(NE_Idx)),cmp=cmpinf,cLabel='SEM',mask=plotBM,clim=[0, 0.1]);
 colorbar off;
 exportgraphics(f, fullfile(fig_savePath,'Figure1_J.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);

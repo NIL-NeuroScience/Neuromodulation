@@ -1,3 +1,5 @@
+close all
+
 % calculate subject averages
 
 NE_order = order(NE_Idx);
@@ -16,50 +18,50 @@ tmp.Beh.PHI_rfp_HD_gfp_HD = f_adjust_SPG(Behavior.PHI.rfp_HD_gfp_HD,4097,0);
 tmp.Beh.PHI_rfp_HD_HbT = f_adjust_SPG(Behavior.PHI.rfp_HD_HbT,4097,0);
 tmp.Beh.PHI_gfp_HD_HbT = f_adjust_SPG(Behavior.PHI.gfp_HD_HbT,4097,0);
 
-subAvg.Beh.XC_gfp_HD_HbT = NaN(201,M);
-subAvg.Beh.XC_rfp_HD_HbT = NaN(201,M);
-subAvg.Beh.XC_rfp_HD_gfp_HD = NaN(201,M);
-subAvg.Beh.R_rfp_HD_HbT = NaN(500,600,M);
-subAvg.Beh.R_gfp_HD_HbT = NaN(500,600,M);
-subAvg.Beh.R_rfp_HD_gfp_HD = NaN(500,600,M);
-subAvg.Beh.R_behavior = NaN(6,6,M);
-subAvg.Beh.SPG_rfp_HD = NaN(4097,M);
-subAvg.Beh.SPG_gfp_HD = NaN(4097,M);
-subAvg.Beh.SPG_HbT = NaN(4097,M);
-subAvg.Beh.COH_rfp_HD_gfp_HD = NaN(4097,M);
-subAvg.Beh.COH_rfp_HD_HbT = NaN(4097,M);
-subAvg.Beh.COH_gfp_HD_HbT = NaN(4097,M);
-subAvg.Beh.PHI_rfp_HD_gfp_HD = NaN(4097,M);
-subAvg.Beh.PHI_rfp_HD_HbT = NaN(4097,M);
-subAvg.Beh.PHI_gfp_HD_HbT = NaN(4097,M);
-subAvg.Beh.NE_IRF_perf = NaN(500,600,M);
-subAvg.Beh.NE_IRF = NaN(151,M);
-subAvg.Beh.GRAB_conn = NaN(12,12,M);
-subAvg.Beh.XC_gfp_HD_HbT_allen = NaN(201,12,M);
+subAvg.FigE2.XC_gfp_HD_HbT = NaN(201,M);
+subAvg.FigE2.XC_rfp_HD_HbT = NaN(201,M);
+subAvg.FigE2.XC_rfp_HD_gfp_HD = NaN(201,M);
+subAvg.FigE2.R_rfp_HD_HbT = NaN(500,600,M);
+subAvg.FigE2.R_gfp_HD_HbT = NaN(500,600,M);
+subAvg.FigE2.R_rfp_HD_gfp_HD = NaN(500,600,M);
+subAvg.FigE2.R_behavior = NaN(6,6,M);
+subAvg.FigE2.SPG_rfp_HD = NaN(4097,M);
+subAvg.FigE2.SPG_gfp_HD = NaN(4097,M);
+subAvg.FigE2.SPG_HbT = NaN(4097,M);
+subAvg.FigE2.COH_rfp_HD_gfp_HD = NaN(4097,M);
+subAvg.FigE2.COH_rfp_HD_HbT = NaN(4097,M);
+subAvg.FigE2.COH_gfp_HD_HbT = NaN(4097,M);
+subAvg.FigE2.PHI_rfp_HD_gfp_HD = NaN(4097,M);
+subAvg.FigE2.PHI_rfp_HD_HbT = NaN(4097,M);
+subAvg.FigE2.PHI_gfp_HD_HbT = NaN(4097,M);
+subAvg.FigE2.NE_IRF_perf = NaN(500,600,M);
+subAvg.FigE2.NE_IRF = NaN(151,M);
+subAvg.FigE2.GRAB_conn = NaN(12,12,M);
+subAvg.FigE2.XC_gfp_HD_HbT_allen = NaN(201,12,M);
 
 for i = 1:M
-    subAvg.Beh.XC_gfp_HD_HbT(:,i) = mean(cat(2,Behavior.XC.gfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.XC_rfp_HD_HbT(:,i) = mean(cat(2,Behavior.XC.rfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.XC_rfp_HD_gfp_HD(:,i) = mean(cat(2,Behavior.XC.rfp_HD_gfp_HD{order(i).Runs}),2);
-    subAvg.Beh.R_rfp_HD_HbT(:,:,i) = mean(tmp.Beh.R_rfp_HD_HbT(:,:,order(i).Runs),3,'omitnan');
-    subAvg.Beh.R_gfp_HD_HbT(:,:,i) = mean(tmp.Beh.R_gfp_HD_HbT(:,:,order(i).Runs),3,'omitnan');
-    subAvg.Beh.R_rfp_HD_gfp_HD(:,:,i) = mean(tmp.Beh.R_rfp_HD_gfp_HD(:,:,order(i).Runs),3,'omitnan');
-    subAvg.Beh.R_behavior(:,:,i) = mean(cat(3,Behavior.R.signals{order(i).Runs}),3,'omitnan');
-    subAvg.Beh.SPG_rfp_HD(:,i) = mean(cat(2,tmp.Beh.SPG_rfp_HD{order(i).Runs}),2);
-    subAvg.Beh.SPG_gfp_HD(:,i) = mean(cat(2,tmp.Beh.SPG_gfp_HD{order(i).Runs}),2);
-    subAvg.Beh.SPG_HbT(:,i) = mean(cat(2,tmp.Beh.SPG_HbT{order(i).Runs}),2);
-    subAvg.Beh.COH_rfp_HD_gfp_HD(:,i) = mean(cat(2,tmp.Beh.COH_rfp_HD_gfp_HD{order(i).Runs}),2);
-    subAvg.Beh.COH_rfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.COH_rfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.COH_gfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.COH_gfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.PHI_rfp_HD_gfp_HD(:,i) = mean(cat(2,tmp.Beh.PHI_rfp_HD_gfp_HD{order(i).Runs}),2);
-    subAvg.Beh.PHI_rfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.PHI_rfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.PHI_gfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.PHI_gfp_HD_HbT{order(i).Runs}),2);
-    subAvg.Beh.NE_IRF_perf(:,:,i) = mean(tmp.Beh.NE_IRF_perf(:,:,order(i).Runs),3,'omitnan');
+    subAvg.FigE2.XC_gfp_HD_HbT(:,i) = mean(cat(2,Behavior.XC.gfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.XC_rfp_HD_HbT(:,i) = mean(cat(2,Behavior.XC.rfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.XC_rfp_HD_gfp_HD(:,i) = mean(cat(2,Behavior.XC.rfp_HD_gfp_HD{order(i).Runs}),2);
+    subAvg.FigE2.R_rfp_HD_HbT(:,:,i) = mean(tmp.Beh.R_rfp_HD_HbT(:,:,order(i).Runs),3,'omitnan');
+    subAvg.FigE2.R_gfp_HD_HbT(:,:,i) = mean(tmp.Beh.R_gfp_HD_HbT(:,:,order(i).Runs),3,'omitnan');
+    subAvg.FigE2.R_rfp_HD_gfp_HD(:,:,i) = mean(tmp.Beh.R_rfp_HD_gfp_HD(:,:,order(i).Runs),3,'omitnan');
+    subAvg.FigE2.R_behavior(:,:,i) = mean(cat(3,Behavior.R.signals{order(i).Runs}),3,'omitnan');
+    subAvg.FigE2.SPG_rfp_HD(:,i) = mean(cat(2,tmp.Beh.SPG_rfp_HD{order(i).Runs}),2);
+    subAvg.FigE2.SPG_gfp_HD(:,i) = mean(cat(2,tmp.Beh.SPG_gfp_HD{order(i).Runs}),2);
+    subAvg.FigE2.SPG_HbT(:,i) = mean(cat(2,tmp.Beh.SPG_HbT{order(i).Runs}),2);
+    subAvg.FigE2.COH_rfp_HD_gfp_HD(:,i) = mean(cat(2,tmp.Beh.COH_rfp_HD_gfp_HD{order(i).Runs}),2);
+    subAvg.FigE2.COH_rfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.COH_rfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.COH_gfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.COH_gfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.PHI_rfp_HD_gfp_HD(:,i) = mean(cat(2,tmp.Beh.PHI_rfp_HD_gfp_HD{order(i).Runs}),2);
+    subAvg.FigE2.PHI_rfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.PHI_rfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.PHI_gfp_HD_HbT(:,i) = mean(cat(2,tmp.Beh.PHI_gfp_HD_HbT{order(i).Runs}),2);
+    subAvg.FigE2.NE_IRF_perf(:,:,i) = mean(tmp.Beh.NE_IRF_perf(:,:,order(i).Runs),3,'omitnan');
     try 
-        subAvg.Beh.NE_IRF(:,i) = mean(cat(2,Behavior.NE_IRF_IRF{order(i).Runs}),2);
-        subAvg.Beh.XC_gfp_HD_HbT_allen(:,:,i) = mean(cat(3,GRAB_FC.gfp_HD_vs_HbT_low{order(i).Runs}),3);
+        subAvg.FigE2.NE_IRF(:,i) = mean(cat(2,Behavior.NE_IRF_IRF{order(i).Runs}),2);
+        subAvg.FigE2.XC_gfp_HD_HbT_allen(:,:,i) = mean(cat(3,GRAB_FC.gfp_HD_vs_HbT_low{order(i).Runs}),3);
     end
-    subAvg.Beh.GRAB_conn(:,:,i) = mean(cat(3,GRAB_FC.FC_detrend{order(i).Runs}),3);
+    subAvg.FigE2.GRAB_conn(:,:,i) = mean(cat(3,GRAB_FC.FC_detrend{order(i).Runs}),3);
 end
 
 fr = Behavior.SPG.fr;
@@ -73,17 +75,17 @@ fig_savePath = fullfile(savePath,'ExtDataFig2');
 %% Fig Behavior A
 
 f = figure;
-meanSig1 = mean(subAvg.Beh.SPG_rfp_HD,2);
-error1 = std(subAvg.Beh.SPG_rfp_HD,0,2)/sqrt(M);
+meanSig1 = mean(subAvg.FigE2.SPG_rfp_HD,2);
+error1 = std(subAvg.FigE2.SPG_rfp_HD,0,2)/sqrt(M);
 f_plotLineError(fr,meanSig1,error1,color=c_Ca,log=1,lineWidth=3);
-meanSig2 = mean(subAvg.Beh.SPG_gfp_HD(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.SPG_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.SPG_gfp_HD(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.SPG_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(fr,meanSig2,error2,color=c_Orange,log=1,lineWidth=3);
-meanSig3 = mean(subAvg.Beh.SPG_gfp_HD(:,NE_Idx),2);
-error3 = std(subAvg.Beh.SPG_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig3 = mean(subAvg.FigE2.SPG_gfp_HD(:,NE_Idx),2);
+error3 = std(subAvg.FigE2.SPG_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(fr,meanSig3,error3,color=c_GRAB,log=1,lineWidth=3);
-meanSig4 = mean(subAvg.Beh.SPG_HbT,2);
-error4 = std(subAvg.Beh.SPG_HbT,0,2)/sqrt(M);
+meanSig4 = mean(subAvg.FigE2.SPG_HbT,2);
+error4 = std(subAvg.FigE2.SPG_HbT,0,2)/sqrt(M);
 f_plotLineError(fr,meanSig4,error4,color=c_HbT,log=1,lineWidth=3);
 
 xlim([0.05,5]);
@@ -104,11 +106,11 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_A.csv'));
 t = 10:-0.1:-10;
 
 f = figure;
-meanSig1 = mean(subAvg.Beh.XC_rfp_HD_gfp_HD(:,NE_Idx),2);
-error1 = std(subAvg.Beh.XC_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig1 = mean(subAvg.FigE2.XC_rfp_HD_gfp_HD(:,NE_Idx),2);
+error1 = std(subAvg.FigE2.XC_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(t,meanSig1,error1,color=c_GRAB,lineWidth=3);
-meanSig2 = mean(subAvg.Beh.XC_rfp_HD_gfp_HD(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.XC_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.XC_rfp_HD_gfp_HD(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.XC_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(t,meanSig2,error2,color=c_Orange,lineWidth=3);
 xlim([-5 5]);
 xlabel('Time (s)');
@@ -125,11 +127,11 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_B.csv'));
 
 %% Fig Behavior C
 
-R_Beh = mean(subAvg.Beh.R_behavior,3);
-gfp_R = mean(subAvg.Beh.R_behavior(:,:,ACh_Idx),3);
+R_Beh = mean(subAvg.FigE2.R_behavior,3);
+gfp_R = mean(subAvg.FigE2.R_behavior(:,:,ACh_Idx),3);
 R_Beh(2,:) = gfp_R(2,:);
 R_Beh(:,2) = gfp_R(2,:);
-gfp_R = mean(subAvg.Beh.R_behavior(:,:,NE_Idx),3);
+gfp_R = mean(subAvg.FigE2.R_behavior(:,:,NE_Idx),3);
 R_Beh(4:7,:) = R_Beh(3:6,:);
 R_Beh(:,4:7) = R_Beh(:,3:6);
 R_Beh(3,[1,3,4,5,6,7]) = gfp_R(2,:);
@@ -137,18 +139,18 @@ R_Beh([1,3,4,5,6,7],3) = gfp_R(2,:);
 R_Beh(2,3) = 0;R_Beh(3,2) = 0;
 
 barData = {};
-barData{1} = squeeze(subAvg.Beh.R_behavior(2,4,ACh_Idx));
-barData{2} = squeeze(subAvg.Beh.R_behavior(2,5,ACh_Idx));
-barData{3} = squeeze(subAvg.Beh.R_behavior(2,6,ACh_Idx));
-barData{4} = squeeze(subAvg.Beh.R_behavior(2,4,NE_Idx));
-barData{5} = squeeze(subAvg.Beh.R_behavior(2,5,NE_Idx));
-barData{6} = squeeze(subAvg.Beh.R_behavior(2,6,NE_Idx));
-barData{7} = squeeze(subAvg.Beh.R_behavior(1,4,:));
-barData{8} = squeeze(subAvg.Beh.R_behavior(1,5,:));
-barData{9} = squeeze(subAvg.Beh.R_behavior(1,6,:));
-barData{10} = squeeze(subAvg.Beh.R_behavior(3,4,:));
-barData{11} = squeeze(subAvg.Beh.R_behavior(3,5,:));
-barData{12} = squeeze(subAvg.Beh.R_behavior(3,6,:));
+barData{1} = squeeze(subAvg.FigE2.R_behavior(2,4,ACh_Idx));
+barData{2} = squeeze(subAvg.FigE2.R_behavior(2,5,ACh_Idx));
+barData{3} = squeeze(subAvg.FigE2.R_behavior(2,6,ACh_Idx));
+barData{4} = squeeze(subAvg.FigE2.R_behavior(2,4,NE_Idx));
+barData{5} = squeeze(subAvg.FigE2.R_behavior(2,5,NE_Idx));
+barData{6} = squeeze(subAvg.FigE2.R_behavior(2,6,NE_Idx));
+barData{7} = squeeze(subAvg.FigE2.R_behavior(1,4,:));
+barData{8} = squeeze(subAvg.FigE2.R_behavior(1,5,:));
+barData{9} = squeeze(subAvg.FigE2.R_behavior(1,6,:));
+barData{10} = squeeze(subAvg.FigE2.R_behavior(3,4,:));
+barData{11} = squeeze(subAvg.FigE2.R_behavior(3,5,:));
+barData{12} = squeeze(subAvg.FigE2.R_behavior(3,6,:));
 
 f = figure;
 [dataMean, dataSEM] = f_plotBar(barData,colors=repmat([c_pupil;0,0.7,0.7;0,0,0],4,1),legend={'Pupil diameter','Whisking','Movement'},ylabel='r',title='Model Performance Comparison',ylim=[0,0.8])
@@ -191,7 +193,7 @@ writetable(table(R_Beh), fullfile(fig_savePath, 'ExtDataFig2_C2.csv'));
 %% Fig Behavior D
 
 f = figure;
-f_plotMap(mean(subAvg.Beh.R_rfp_HD_gfp_HD(:,:,ACh_Idx),3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='ACh vs. Ca^2^+',clabel='r');
+f_plotMap(mean(subAvg.FigE2.R_rfp_HD_gfp_HD(:,:,ACh_Idx),3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='ACh vs. Ca^2^+',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -200,7 +202,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig2_D1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 barData = {};
-barData{1} = squeeze(mean(subAvg.Beh.R_rfp_HD_gfp_HD(:,:,ACh_Idx).*plotBM,[1,2],'omitnan'));
+barData{1} = squeeze(mean(subAvg.FigE2.R_rfp_HD_gfp_HD(:,:,ACh_Idx).*plotBM,[1,2],'omitnan'));
 
 f = figure(Position=[100,100,200,330]);
 [dataMean, dataSEM] = f_plotBar(barData,colors=c_darkCyan,ylabel='r')
@@ -214,16 +216,16 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_D2.csv'));
 %% Fig Behavior E
 
 f = figure(Position=[100,100,450,450]);
-meanSig1 = mean(subAvg.Beh.COH_rfp_HD_gfp_HD(:,ACh_Idx),2);
-error1 = std(subAvg.Beh.COH_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig1 = mean(subAvg.FigE2.COH_rfp_HD_gfp_HD(:,ACh_Idx),2);
+error1 = std(subAvg.FigE2.COH_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(fr,meanSig1,error1,color=c_Orange,log=1,lineWidth=3);
 ylim([0,1]);
 set(gca,'YScale','linear','FontSize',14);
 ylabel('Coherence');
 
 yyaxis right;
-meanSig2 = mean(subAvg.Beh.PHI_rfp_HD_gfp_HD(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.PHI_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.PHI_rfp_HD_gfp_HD(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.PHI_rfp_HD_gfp_HD(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(fr,meanSig2,error2,color=[0,0,0],log=1,lineWidth=3);
 ylim(pi*[-1 1]);
 xlim([0.05,5]);
@@ -327,7 +329,7 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_G2.csv'));
 %% Fig Behavior H
 
 f = figure;
-f_plotMap(mean(subAvg.Beh.R_rfp_HD_gfp_HD(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='NE vs. Ca^2^+',clabel='r');
+f_plotMap(mean(subAvg.FigE2.R_rfp_HD_gfp_HD(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='NE vs. Ca^2^+',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -336,7 +338,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig2_H1.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 barData = {};
-barData{1} = squeeze(mean(subAvg.Beh.R_rfp_HD_gfp_HD(:,:,NE_Idx).*plotBM,[1,2],'omitnan'));
+barData{1} = squeeze(mean(subAvg.FigE2.R_rfp_HD_gfp_HD(:,:,NE_Idx).*plotBM,[1,2],'omitnan'));
 
 f = figure(Position=[100,100,200,330]);
 [dataMean, dataSEM] = f_plotBar(barData,colors=c_darkCyan,ylabel='r')
@@ -350,16 +352,16 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_H2.csv'));
 %% Fig Behavior I
 
 f = figure(Position=[100,100,450,450]);
-meanSig1 = mean(subAvg.Beh.COH_rfp_HD_gfp_HD(:,NE_Idx),2);
-error1 = std(subAvg.Beh.COH_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig1 = mean(subAvg.FigE2.COH_rfp_HD_gfp_HD(:,NE_Idx),2);
+error1 = std(subAvg.FigE2.COH_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(fr,meanSig1,error1,color=c_GRAB,log=1,lineWidth=3);
 ylim([0,1]);
 set(gca,'YScale','linear','FontSize',14);
 ylabel('Coherence');
 
 yyaxis right;
-meanSig2 = mean(subAvg.Beh.PHI_rfp_HD_gfp_HD(:,NE_Idx),2);
-error2 = std(subAvg.Beh.PHI_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig2 = mean(subAvg.FigE2.PHI_rfp_HD_gfp_HD(:,NE_Idx),2);
+error2 = std(subAvg.FigE2.PHI_rfp_HD_gfp_HD(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(fr,meanSig2,error2,color=[0,0,0],log=1,lineWidth=3);
 ylim(pi*[-1 1]);
 xlim([0.05,5]);
@@ -374,8 +376,8 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_I.csv'));
 
 %% Fig Behavior J
 
-meanSig = mean(subAvg.Beh.NE_IRF(:,NE_Idx),2);
-error = std(subAvg.Beh.NE_IRF(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig = mean(subAvg.FigE2.NE_IRF(:,NE_Idx),2);
+error = std(subAvg.FigE2.NE_IRF(:,NE_Idx),0,2)/sqrt(M_NE);
 t = -5:0.1:10;
 
 f = figure(Position=[100,100,300,200]);
@@ -392,7 +394,7 @@ T = table(round(t',2),meanSig,error, ...
 writetable(T, fullfile(fig_savePath, 'ExtDataFig2_J1.csv'));
 
 f = figure;
-f_plotMap(mean(subAvg.Beh.NE_IRF_perf(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpvir,bounds=[0 1],title='NE IRF vs. Ca^2^+',clabel='r');
+f_plotMap(mean(subAvg.FigE2.NE_IRF_perf(:,:,NE_Idx),3,'omitnan').*plotBM,cmp=cmpvir,clim=[0 1],title='NE IRF vs. Ca^2^+',clabel='r');
 % for i = 1:12
 %     f_plotAllenRegion(i,2,linewidth=2,color=[0 0 0]);
 % end
@@ -401,7 +403,7 @@ title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig2_J2.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
 
 barData = {};
-barData{1} = squeeze(mean(subAvg.Beh.NE_IRF_perf(:,:,NE_Idx).*plotBM,[1,2],'omitnan'));
+barData{1} = squeeze(mean(subAvg.FigE2.NE_IRF_perf(:,:,NE_Idx).*plotBM,[1,2],'omitnan'));
 
 f = figure(Position=[100,100,200,330]);
 [dataMean, dataSEM] = f_plotBar(barData,colors=c_darkCyan,ylabel='r')
@@ -416,25 +418,25 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_J3.csv'));
 %% Fig Behavior K
 
 f = figure;
-f_plotFC(mean(subAvg.Beh.GRAB_conn(:,:,NE_Idx),3),1,cmp=cmpvir,bounds=[0 1],title='NE Connectivity',clabel='r');
+f_plotFC(mean(subAvg.FigE2.GRAB_conn(:,:,NE_Idx),3),1,cmp=cmpvir,clim=[0 1],title='NE Connectivity',clabel='r');
 colorbar off;
 title '';
 exportgraphics(f, fullfile(fig_savePath,'ExtDataFig2_K.jpg'),'Resolution',300,'BackgroundColor',[1 1 1]);
-writetable(table(mean(subAvg.Beh.GRAB_conn(:,:,NE_Idx),3)), fullfile(fig_savePath, 'ExtDataFig2_K.csv'));
+writetable(table(mean(subAvg.FigE2.GRAB_conn(:,:,NE_Idx),3)), fullfile(fig_savePath, 'ExtDataFig2_K.csv'));
 
 %% Fig Behavior L
 
 f = figure(Position=[100,100,450,450]);
-meanSig1 = mean(subAvg.Beh.COH_rfp_HD_HbT,2);
-error1 = std(subAvg.Beh.COH_rfp_HD_HbT,0,2)/sqrt(M);
+meanSig1 = mean(subAvg.FigE2.COH_rfp_HD_HbT,2);
+error1 = std(subAvg.FigE2.COH_rfp_HD_HbT,0,2)/sqrt(M);
 f_plotLineError(fr,meanSig1,error1,color=c_Ca,log=1,lineWidth=3);
 ylim([0,1]);
 set(gca,'YScale','linear','FontSize',14);
 ylabel('Coherence');
 
 yyaxis right;
-meanSig2 = mean(subAvg.Beh.PHI_rfp_HD_HbT,2);
-error2 = std(subAvg.Beh.PHI_rfp_HD_HbT,0,2)/sqrt(M);
+meanSig2 = mean(subAvg.FigE2.PHI_rfp_HD_HbT,2);
+error2 = std(subAvg.FigE2.PHI_rfp_HD_HbT,0,2)/sqrt(M);
 f_plotLineError(fr,meanSig2,error2,color=[0,0,0],log=1,lineWidth=3);
 ylim(pi*[-1 1]);
 xlim([0.05,5]);
@@ -448,16 +450,16 @@ T = table(fr,meanSig1,meanSig2,error1,error2, ...
 writetable(T, fullfile(fig_savePath, 'ExtDataFig2_L1.csv'));
 
 f = figure(Position=[100,100,450,450]);
-meanSig1 = mean(subAvg.Beh.COH_gfp_HD_HbT(:,NE_Idx),2);
-error1 = std(subAvg.Beh.COH_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig1 = mean(subAvg.FigE2.COH_gfp_HD_HbT(:,NE_Idx),2);
+error1 = std(subAvg.FigE2.COH_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(fr,meanSig1,error1,color=c_GRAB,log=1,lineWidth=3);
 ylim([0,1]);
 set(gca,'YScale','linear','FontSize',14);
 ylabel('Coherence');
 
 yyaxis right;
-meanSig2 = mean(subAvg.Beh.PHI_gfp_HD_HbT(:,NE_Idx),2);
-error2 = std(subAvg.Beh.PHI_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig2 = mean(subAvg.FigE2.PHI_gfp_HD_HbT(:,NE_Idx),2);
+error2 = std(subAvg.FigE2.PHI_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(fr,meanSig2,error2,color=[0,0,0],log=1,lineWidth=3);
 ylim(pi*[-1 1]);
 xlim([0.05,5]);
@@ -471,16 +473,16 @@ T = table(fr,meanSig1,meanSig2,error1,error2, ...
 writetable(T, fullfile(fig_savePath, 'ExtDataFig2_L2.csv'));
 
 f = figure(Position=[100,100,450,450]);
-meanSig1 = mean(subAvg.Beh.COH_gfp_HD_HbT(:,ACh_Idx),2);
-error1 = std(subAvg.Beh.COH_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig1 = mean(subAvg.FigE2.COH_gfp_HD_HbT(:,ACh_Idx),2);
+error1 = std(subAvg.FigE2.COH_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(fr,meanSig1,error1,color=c_Orange,log=1,lineWidth=3);
 ylim([0,1]);
 set(gca,'YScale','linear','FontSize',14);
 ylabel('Coherence');
 
 yyaxis right;
-meanSig2 = mean(subAvg.Beh.PHI_gfp_HD_HbT(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.PHI_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.PHI_gfp_HD_HbT(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.PHI_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(fr,meanSig2,error2,color=[0,0,0],log=1,lineWidth=3);
 ylim(pi*[-1 1]);
 xlim([0.05,5]);
@@ -498,14 +500,14 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_L3.csv'));
 t = 10:-0.1:-10;
 
 f = figure;
-meanSig1 = mean(subAvg.Beh.XC_gfp_HD_HbT(:,NE_Idx),2);
-error1 = std(subAvg.Beh.XC_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
+meanSig1 = mean(subAvg.FigE2.XC_gfp_HD_HbT(:,NE_Idx),2);
+error1 = std(subAvg.FigE2.XC_gfp_HD_HbT(:,NE_Idx),0,2)/sqrt(M_NE);
 f_plotLineError(t,meanSig1,error1,color=c_GRAB);
-meanSig2 = mean(subAvg.Beh.XC_gfp_HD_HbT(:,ACh_Idx),2);
-error2 = std(subAvg.Beh.XC_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
+meanSig2 = mean(subAvg.FigE2.XC_gfp_HD_HbT(:,ACh_Idx),2);
+error2 = std(subAvg.FigE2.XC_gfp_HD_HbT(:,ACh_Idx),0,2)/sqrt(M_ACh);
 f_plotLineError(t,meanSig2,error2,color=c_Orange);
-meanSig3 = mean(subAvg.Beh.XC_rfp_HD_HbT,2);
-error3 = std(subAvg.Beh.XC_rfp_HD_HbT,0,2)/sqrt(M);
+meanSig3 = mean(subAvg.FigE2.XC_rfp_HD_HbT,2);
+error3 = std(subAvg.FigE2.XC_rfp_HD_HbT,0,2)/sqrt(M);
 f_plotLineError(t,meanSig3,error3,color=c_Ca);
 xlim([-5 5]);
 xlabel('Time (s)');
@@ -519,58 +521,6 @@ T = table(t',meanSig1,meanSig2,meanSig3,error1,error2,error3, ...
     VariableNames={'Lag','mean_NE','mean_ACh','mean_Ca', ...
     'SEM_NE','SEM_ACh','SEM_Ca'});
 writetable(T, fullfile(fig_savePath, 'ExtDataFig2_M.csv'));
-
-%% Extended data fig 4 E
-
-fig_savePath = fullfile(savePath,'ExtDataFig4');
-[~, ~, ~] = mkdir(fig_savePath);
-
-t = 10:-0.1:-10;
-
-f = figure;
-meanSig = mean(subAvg.Beh.XC_gfp_HD_HbT_allen(:,2,NE_Idx),3);
-error = std(subAvg.Beh.XC_gfp_HD_HbT_allen(:,2,NE_Idx),0,3)/sqrt(M_NE);
-f_plotLineError(t,meanSig,error,color=c_GRAB,lineWidth=3);
-xlim([-5 5]);
-ylim(0.7*[-1 1]);
-xlabel('Time (s)');
-ylabel('r');
-set(gca,'FontSize',14);
-title('NE(MOs) vs. HbT');
-saveas(f, fullfile(fig_savePath, 'ExtDataFig4_E1.svg'));
-T = table(t',meanSig,error, ...
-    VariableNames={'Lag','mean_r','SEM_r'});
-writetable(T, fullfile(fig_savePath, 'ExtDataFig4_E1.csv'));
-
-f = figure;
-meanSig = mean(subAvg.Beh.XC_gfp_HD_HbT_allen(:,5,NE_Idx),3);
-error = std(subAvg.Beh.XC_gfp_HD_HbT_allen(:,5,NE_Idx),0,3)/sqrt(M_NE);
-f_plotLineError(t,meanSig,error,color=c_GRAB,lineWidth=3);
-xlim([-5 5]);
-ylim(0.7*[-1 1]);
-xlabel('Time (s)');
-ylabel('r');
-set(gca,'FontSize',14);
-title('NE(SSp-ll) vs. HbT');
-saveas(f, fullfile(fig_savePath, 'ExtDataFig4_E2.svg'));
-T = table(t',meanSig,error, ...
-    VariableNames={'Lag','mean_r','SEM_r'});
-writetable(T, fullfile(fig_savePath, 'ExtDataFig4_E2.csv'));
-
-f = figure;
-meanSig = mean(subAvg.Beh.XC_gfp_HD_HbT_allen(:,12,NE_Idx),3);
-error = std(subAvg.Beh.XC_gfp_HD_HbT_allen(:,12,NE_Idx),0,3)/sqrt(M_NE);
-f_plotLineError(t,meanSig,error,color=c_GRAB,lineWidth=3);
-xlim([-5 5]);
-ylim(0.7*[-1 1]);
-xlabel('Time (s)');
-ylabel('r');
-set(gca,'FontSize',14);
-title('NE(VISp) vs. HbT');
-saveas(f, fullfile(fig_savePath, 'ExtDataFig4_E3.svg'));
-T = table(t',meanSig,error, ...
-    VariableNames={'Lag','mean_r','SEM_r'});
-writetable(T, fullfile(fig_savePath, 'ExtDataFig4_E3.csv'));
 
 %%
 function spg = f_adjust_SPG(data,length,norm)

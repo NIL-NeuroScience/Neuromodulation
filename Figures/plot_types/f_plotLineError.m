@@ -26,6 +26,10 @@ addParameter(p, 'log', 0);
 
 parse(p, varargin{:});
 
+x = x(:);
+y = y(:);
+error = error(:);
+
 if isempty(p.Results.color)
     color = get(groot, 'defaultAxesColorOrder');
     color = color(1, :);
@@ -40,8 +44,8 @@ if p.Results.log
     y(zeroIdx) = [];
     error(zeroIdx) = [];
     set(gca, ...
-        YScale = log', ...
-        XScale = log');
+        YScale = 'log', ...
+        XScale = 'log');
 end
 
 hold on;
