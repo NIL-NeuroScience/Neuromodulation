@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% add path to local matNWB installation and child directories
-% tic
+
 % get path to Neuromodulation directory
 parentDir = f_path();
 addPaths(parentDir);
@@ -249,10 +249,10 @@ for nwbI = 1:numel(nwb_list)
     [Behavior.COH.rfp_HD_gfp_HD,Behavior.PHI.rfp_HD_gfp_HD] = f_hemCoherence(rfp_HD,gfp_HD,fs,comb_mask,Behavior.tapers);
     
     % xcorr
-    [Behavior.XC.rfp_HD_HbT,Behavior.XC.lag] = f_hemLag_dT(rfp_HD,HbT_low,fs,[-10 10],comb_mask);
-    [Behavior.XC.gfp_HD_HbT,Behavior.XC.lag] = f_hemLag_dT(gfp_HD,HbT_low,fs,[-10 10],comb_mask);
-    [Behavior.XC.gfp_HbT,Behavior.XC.lag] = f_hemLag_dT(gfp,HbT_low,fs,[-10 10],comb_mask);
-    [Behavior.XC.rfp_HD_gfp_HD,Behavior.XC.lag] = f_hemLag_dT(rfp_HD,gfp_HD,fs,[-10 10],comb_mask);
+    [Behavior.XC.rfp_HD_HbT,Behavior.XC.lag] = f_hemLag(rfp_HD,HbT_low,fs,[-10 10],comb_mask);
+    [Behavior.XC.gfp_HD_HbT,Behavior.XC.lag] = f_hemLag(gfp_HD,HbT_low,fs,[-10 10],comb_mask);
+    [Behavior.XC.gfp_HbT,Behavior.XC.lag] = f_hemLag(gfp,HbT_low,fs,[-10 10],comb_mask);
+    [Behavior.XC.rfp_HD_gfp_HD,Behavior.XC.lag] = f_hemLag(rfp_HD,gfp_HD,fs,[-10 10],comb_mask);
     
     % correlation
     Behavior.R.rfp_HD_low_gfp_HD_low = f_corr(f_bpf(rfp_HD,[0, 0.5],fs,3),f_bpf(gfp_HD,[0, 0.5],fs,3),3);
@@ -1161,4 +1161,3 @@ function plotFig3(Fig3,savePath)
     end
 
 end
-toc

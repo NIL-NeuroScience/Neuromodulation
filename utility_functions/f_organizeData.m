@@ -1,8 +1,40 @@
-function [log, order, settings, Fig1, Fig2, Fig3, Behavior, Hb_model, unfiltered, shuffled, NE_reg, spectra, FC_fr, GRAB_FC] = f_organizeData(path)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           f_organizeData
+% author - Brad Rauscher (created 2024)
+% 
+% Organizes analysis .mat files for each figure.
+% 
+% INPUTS: f_organizeData(path)
+%   path: signal to parcellate (H x W x T)
+%   masks: masks to parcellate sig (H x W x N)
+% 
+% OUTPUTS:
+%   log: log struct of imaging sessions
+%   order: summary of 'log'
+%   settings: settings structure
+%   Fig1: Fig1 data
+%   Fig2: Fig2 data
+%   Fig3: Fig3 data
+%   Behavior: data for Extended Data Figure 2
+%   Hb_model: data for Extended Data Figure 3
+%   unfiltered: data for Extended Data Figure 5
+%   shuffled: data for Extended Data Figure 5
+%   NE_reg: data for Extended Data Figure 9
+%   spectra: data for Extended Data Figure 8
+%   FC_fr: data for Extended Data Figure 7
+%   GRAB_FC: data for Extended Data Figure 2
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function [log, order, settings, Fig1, Fig2, Fig3, Behavior, Hb_model, ...
+    unfiltered, shuffled, NE_reg, spectra, FC_fr, GRAB_FC] = ...
+    f_organizeData(path)
+
+% get all files
 files = dir(path);
 files(1:2) = [];
 
+% setup variables
 log = struct('Mouse',[],'Date',[],'GRAB',[],'Run',[],'iRun',[]);
 
 settings = struct;
@@ -22,12 +54,12 @@ N = numel(files);
 
 for i = 1:N
     name = files(i).name;
-    name = strsplit(name,'_');
+    name = strsplit(name, '_');
 
-    log(i).Mouse = strrep(name{1}(5:end),'-','_');
-    log(i).Date = name{2}(5:end);
-    log(i).Run = str2double(name{3}(5:6));
-    log(i).iRun = str2double(name{4}(6:7));
+    log(i).Mouse = strrep(name{1}(5 : end), '-', '_');
+    log(i).Date = name{2}(5 : end);
+    log(i).Run = str2double(name{3}(5 : 6));
+    log(i).iRun = str2double(name{4}(6 : 7));
     
     metadata = load(fullfile(files(i).folder,files(i).name));
     log(i).GRAB = metadata.metadata.GRAB;
@@ -35,7 +67,6 @@ for i = 1:N
     settings.brain_mask{i} = metadata.metadata.settings.brain_mask;
     settings.vessel_mask{i} = metadata.metadata.settings.vessel_mask;
     settings.allen_masks{i} = metadata.metadata.settings.allen_masks;
-    % settings.parcellation{i} = metadata.metadata.settings.parcellation.parcellation;
 
     Fig1.inv_perf{i} = metadata.Fig1.IRFx1_inv.perf;
     Fig1.inv_IRF{i} = metadata.Fig1.IRFx1_inv.IRF;
@@ -43,16 +74,18 @@ for i = 1:N
     Fig1.SSp_IRF{i} = metadata.Fig1.IRFx1_SSp.IRF;
     Fig1.var_perf{i} = metadata.Fig1.IRFx1_var.perf;
     Fig1.var_IRF{i} = metadata.Fig1.IRFx1_var.IRF_allen;
-    Fig1.GRAB{i} = metadata.Fig1.GRAB(:,2);
-    Fig1.SSp_perf_dt{i} = metadata.Fig1.IRFx1_SSp.perf_dt(:,2);
+    Fig1.GRAB{i} = metadata.Fig1.GRAB(:, 2);
+    Fig1.SSp_perf_dt{i} = metadata.Fig1.IRFx1_SSp.perf_dt(:, 2);
     Fig1.SSp_perf_vs_GRAB{i} = metadata.Fig1.SSp_perf_vs_GRAB;
     
     corrWin = metadata.Fig1.perf_dt_win;
-    tmpGRAB = movmean(metadata.GRAB_FC.GRAB_global,corrWin(2)*10,1);
-    tmpGRAB = tmpGRAB(corrWin(1)*10/2:corrWin(2)*10:numel(tmpGRAB)-corrWin(1)*10/2);
+    tmpGRAB = movmean(metadata.GRAB_FC.GRAB_global, corrWin(2) * 10, 1);
+    tmpGRAB = tmpGRAB(corrWin(1) * 10 / 2 : corrWin(2) * ...
+        10 : numel(tmpGRAB) - corrWin(1) * 10 / 2);
     
     Fig1.GRAB_global{i} = tmpGRAB;
-    Fig1.SSp_perf_vs_GRAB_global{i} = f_corr(metadata.Fig1.IRFx1_SSp.perf_dt,tmpGRAB,1);
+    Fig1.SSp_perf_vs_GRAB_global{i} = ...
+        f_corr(metadata.Fig1.IRFx1_SSp.perf_dt, tmpGRAB, 1);
     
     GRAB_FC.GRAB{i} = metadata.GRAB_FC.GRAB;
     GRAB_FC.GRAB_global{i} = metadata.GRAB_FC.GRAB_global;
@@ -78,10 +111,13 @@ for i = 1:N
     Behavior.XC.gfp_HbT{i} = metadata.Behavior.XC.gfp_HbT;
     Behavior.XC.gfp_HD_HbT{i} = metadata.Behavior.XC.gfp_HD_HbT;
     Behavior.XC.lag = metadata.Behavior.XC.lag;
-    Behavior.R.rfp_HD_low_HbT_low{i} = metadata.Behavior.R.rfp_HD_low_HbT_low;
-    Behavior.R.gfp_HD_low_HbT_low{i} = metadata.Behavior.R.gfp_HD_low_HbT_low;
+    Behavior.R.rfp_HD_low_HbT_low{i} = ...
+        metadata.Behavior.R.rfp_HD_low_HbT_low;
+    Behavior.R.gfp_HD_low_HbT_low{i} = ...
+        metadata.Behavior.R.gfp_HD_low_HbT_low;
     Behavior.R.gfp_low_HbT_low{i} = metadata.Behavior.R.gfp_low_HbT_low;
-    Behavior.R.rfp_HD_low_gfp_HD_low{i} = metadata.Behavior.R.rfp_HD_low_gfp_HD_low;
+    Behavior.R.rfp_HD_low_gfp_HD_low{i} = ...
+        metadata.Behavior.R.rfp_HD_low_gfp_HD_low;
     Behavior.R.signals{i} = metadata.Behavior.R.signals;
     Behavior.signals{i} = metadata.Behavior.signals;
     
@@ -90,10 +126,11 @@ for i = 1:N
         Behavior.NE_IRF_IRF{i} = metadata.Behavior.NE_IRF.IRF;
         
         GRAB_FC.gfp_HD_vs_HbT_low{i} = [];
-        tmpHbT = f_bpf(metadata.Fig3.HbT,[0,0.5],10);
+        tmpHbT = f_bpf(metadata.Fig3.HbT, [0, 0.5], 10);
         tmpNE = GRAB_FC.GRAB{i};
-        for r = 1:12
-            GRAB_FC.gfp_HD_vs_HbT_low{i}(:,r) = xcorr(tmpNE(:,r),tmpHbT(:,r),100,'normalized');
+        for r = 1 : 12
+            GRAB_FC.gfp_HD_vs_HbT_low{i}(:, r) = ...
+                xcorr(tmpNE(:, r), tmpHbT(:, r), 100, 'normalized');
         end
 
         Fig2.LR_perf{i} = metadata.Fig2.LR.perf;
@@ -108,8 +145,8 @@ for i = 1:N
         
         
         Fig3.NE{i} = metadata.Fig3.GRAB;
-        Fig3.FC_Ca_MOs_SSpll{i} = squeeze(metadata.Fig3.FC.Ca(2,5,:));
-        Fig3.FC_HbT_MOs_SSpll{i} = squeeze(metadata.Fig3.FC.HbT(2,5,:));
+        Fig3.FC_Ca_MOs_SSpll{i} = squeeze(metadata.Fig3.FC.Ca(2, 5, :));
+        Fig3.FC_HbT_MOs_SSpll{i} = squeeze(metadata.Fig3.FC.HbT(2, 5, :));
         Fig3.FC_Ca_vs_HbT{i} = metadata.Fig3.FC.Ca_vs_HbT;
         Fig3.lowNE_Ca{i} = metadata.Fig3.lowNE_FC.Ca;
         Fig3.lowNE_HbT{i} = metadata.Fig3.lowNE_FC.HbT;
@@ -162,21 +199,24 @@ for i = 1:N
         NE_reg.highNE_FC{i} = metadata.NE_reg.highNE_FC.HbT_reg;
         NE_reg.FC_R_HbT{i} = metadata.NE_reg.FC_r.Ca_HbT;
         NE_reg.FC_R_HbT_reg{i} = metadata.NE_reg.FC_r.Ca_HbT_reg;
-        % NE_reg.IRFx1_inv_perf{i} = metadata.NE_reg.IRFx1_inv.perf;
-        % NE_reg.IRFx1_inv_IRF{i} = metadata.NE_reg.IRFx1_inv.IRF;
         
-        bounds = prctile(metadata.Fig3.GRAB,[30, 70]);
+        bounds = prctile(metadata.Fig3.GRAB, [30, 70]);
         lowNE = metadata.Fig3.GRAB < bounds(1);
         highNE = metadata.Fig3.GRAB > bounds(2);
         
         global_HbT_reg = metadata.GRAB_FC.GRAB_global \ metadata.Fig3.HbT;
-        global_HbT_reg = metadata.Fig3.HbT-global_HbT_reg.*metadata.GRAB_FC.GRAB_global;
+        global_HbT_reg = metadata.Fig3.HbT - global_HbT_reg .* ...
+            metadata.GRAB_FC.GRAB_global;
 
-        global_FC_HbT_reg = f_funConGram(global_HbT_reg,metadata.Fig3.win*10);
-        NE_reg.global_lowNE_FC{i} = mean(global_FC_HbT_reg(:,:,lowNE),3);
-        NE_reg.global_highNE_FC{i} = mean(global_FC_HbT_reg(:,:,highNE),3);
+        global_FC_HbT_reg = ...
+            f_funConGram(global_HbT_reg, metadata.Fig3.win * 10);
+        NE_reg.global_lowNE_FC{i} = ...
+            mean(global_FC_HbT_reg(:, :, lowNE), 3);
+        NE_reg.global_highNE_FC{i} = ...
+            mean(global_FC_HbT_reg(:, :, highNE), 3);
         
-        NE_reg.global_FC_R_HbT_reg{i} = f_corr(metadata.Fig3.FC.Ca,global_FC_HbT_reg,3);
+        NE_reg.global_FC_R_HbT_reg{i} = f_corr(metadata.Fig3.FC.Ca, ...
+            global_FC_HbT_reg, 3);
         
         FC_fr.lowF_lowNE_Ca{i} = metadata.FC_fr.low.lowNE_FC.Ca;
         FC_fr.lowF_highNE_Ca{i} = metadata.FC_fr.low.highNE_FC.Ca;
@@ -189,19 +229,19 @@ for i = 1:N
         FC_fr.medF_lowNE_HbT{i} = metadata.FC_fr.medium.lowNE_FC.HbT;
         FC_fr.medF_highNE_HbT{i} = metadata.FC_fr.medium.highNE_FC.HbT;
         
-        NE_bin = prctile(metadata.spectra.NE,[30 70]);
+        NE_bin = prctile(metadata.spectra.NE, [30, 70]);
         low_idx = metadata.spectra.NE < NE_bin(1);
         high_idx = metadata.spectra.NE > NE_bin(2);
         spectra.fr = metadata.spectra.SPG.f';
-        SPG_Ca = metadata.spectra.SPG.Ca.*metadata.spectra.SPG.f;
-        SPG_HbT = metadata.spectra.SPG.HbT.*metadata.spectra.SPG.f;
+        SPG_Ca = metadata.spectra.SPG.Ca .* metadata.spectra.SPG.f;
+        SPG_HbT = metadata.spectra.SPG.HbT .* metadata.spectra.SPG.f;
         
-        [~,fIdx] = min(abs(metadata.spectra.SPG.f'-[0.1, 0.5]));
+        [~, fIdx] = min(abs(metadata.spectra.SPG.f' - [0.1, 0.5]));
 
-        spectra.low_NE_Ca{i} = mean(metadata.spectra.low_NE.Ca,2);
-        spectra.high_NE_Ca{i} = mean(metadata.spectra.high_NE.Ca,2);
-        spectra.low_NE_HbT{i} = mean(metadata.spectra.low_NE.HbT,2);
-        spectra.high_NE_HbT{i} = mean(metadata.spectra.high_NE.HbT,2);
+        spectra.low_NE_Ca{i} = mean(metadata.spectra.low_NE.Ca, 2);
+        spectra.high_NE_Ca{i} = mean(metadata.spectra.high_NE.Ca, 2);
+        spectra.low_NE_HbT{i} = mean(metadata.spectra.low_NE.HbT, 2);
+        spectra.high_NE_HbT{i} = mean(metadata.spectra.high_NE.HbT, 2);
         spectra.NE{i} = metadata.spectra.NE;
         spectra.SPG_Ca{i} = SPG_Ca;
         spectra.SPG_HbT{i} = SPG_HbT;
@@ -209,16 +249,26 @@ for i = 1:N
         spectra.Ca{i} = metadata.spectra.Ca;
         spectra.HbT{i} = metadata.spectra.HbT;
 
-        spectra.lowF_lowNE_Ca{i} = squeeze(mean(SPG_Ca(low_idx,1:fIdx(1),:),[1,2]));
-        spectra.lowF_highNE_Ca{i} = squeeze(mean(SPG_Ca(high_idx,1:fIdx(1),:),[1,2]));
-        spectra.medF_lowNE_Ca{i} = squeeze(mean(SPG_Ca(low_idx,fIdx(1):fIdx(2),:),[1,2]));
-        spectra.medF_highNE_Ca{i} = squeeze(mean(SPG_Ca(high_idx,fIdx(1):fIdx(2),:),[1,2]));
-        spectra.highF_lowNE_Ca{i} = squeeze(mean(SPG_Ca(low_idx,fIdx(2):end,:),[1,2]));
-        spectra.highF_highNE_Ca{i} = squeeze(mean(SPG_Ca(high_idx,fIdx(2):end,:),[1,2]));
-        spectra.lowF_lowNE_HbT{i} = squeeze(mean(SPG_HbT(low_idx,1:fIdx(1),:),[1,2]));
-        spectra.lowF_highNE_HbT{i} = squeeze(mean(SPG_HbT(high_idx,1:fIdx(1),:),[1,2]));
-        spectra.medF_lowNE_HbT{i} = squeeze(mean(SPG_HbT(low_idx,fIdx(1):fIdx(2),:),[1,2]));
-        spectra.medF_highNE_HbT{i} = squeeze(mean(SPG_HbT(high_idx,fIdx(1):fIdx(2),:),[1,2]));
+        spectra.lowF_lowNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(low_idx, 1 : fIdx(1), :), [1, 2]));
+        spectra.lowF_highNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(high_idx, 1 : fIdx(1), :), [1, 2]));
+        spectra.medF_lowNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(low_idx, fIdx(1) : fIdx(2), :), [1, 2]));
+        spectra.medF_highNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(high_idx, fIdx(1) : fIdx(2), :), [1, 2]));
+        spectra.highF_lowNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(low_idx, fIdx(2) : end, :), [1, 2]));
+        spectra.highF_highNE_Ca{i} = ...
+            squeeze(mean(SPG_Ca(high_idx, fIdx(2) : end, :), [1, 2]));
+        spectra.lowF_lowNE_HbT{i} = ...
+            squeeze(mean(SPG_HbT(low_idx, 1 : fIdx(1), :), [1, 2]));
+        spectra.lowF_highNE_HbT{i} = ...
+            squeeze(mean(SPG_HbT(high_idx, 1 : fIdx(1), :), [1, 2]));
+        spectra.medF_lowNE_HbT{i} = ...
+            squeeze(mean(SPG_HbT(low_idx, fIdx(1) : fIdx(2), :), [1, 2]));
+        spectra.medF_highNE_HbT{i} = ...
+            squeeze(mean(SPG_HbT(high_idx, fIdx(1) : fIdx(2), :), [1, 2]));
         
     end
 
@@ -227,11 +277,11 @@ end
 mice = unique({log.Mouse})';
 M = numel(mice);
 
-order = struct('Mouse',[],'Runs',[],'GRAB',[],'N',[]);
+order = struct('Mouse', [], 'Runs', [], 'GRAB', [], 'N', []);
 
-for mIdx = 1:M
+for mIdx = 1 : M
     order(mIdx).Mouse = mice{mIdx};
-    order(mIdx).Runs = find(strcmp({log.Mouse},mice{mIdx}));
+    order(mIdx).Runs = find(strcmp({log.Mouse}, mice{mIdx}));
     order(mIdx).GRAB = log(order(mIdx).Runs(1)).GRAB;
     order(mIdx).N = numel(order(mIdx).Runs);
 end
