@@ -6,9 +6,11 @@
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% setup paths
 parentDir = f_path();
 addPaths(parentDir);
-dataPath = [parentDir, '/analysis'];
+
+dataPath = fullfile(parentDir, 'analysis');
 savePath = fullfile(parentDir, 'results');
 
 % load and organize data
@@ -23,6 +25,7 @@ load(fullfile(parentDir, 'Figures/plot_types/refAllen.mat'));
 BM = f_regImages(settings.brain_mask, refParcellation, ...
     settings.allen_masks, 1);
 
+% sort NE and ACh trials
 M = numel(order);
 
 NE_Idx = strcmp({order.GRAB}, 'GRAB_NE');
@@ -31,9 +34,11 @@ ACh_Idx = strcmp({order.GRAB}, 'GRAB_ACh');
 M_NE = sum(NE_Idx);
 M_ACh = sum(ACh_Idx);
 
+% initialize variables
 subAvg = struct;
 
-set(0, 'defaultfigurecolor', [1, 1, 1]);
+plotBM = refBM;
+plotBM(:, 1 : 300) = NaN;
 
 %% plot Main figures
 plotFig1
@@ -52,8 +57,9 @@ plotFigE8
 plotFigE9
 plotFigE10
 
-%% EXTRA FUNCTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXTRA FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% adds paths of all directories under a given directory
 function addPaths(mainDir)
     addDirs = genpath(mainDir);
     addDirs = strsplit(addDirs, pathsep);

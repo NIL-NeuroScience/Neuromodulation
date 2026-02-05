@@ -243,8 +243,8 @@ for i = 1:N
         spectra.low_NE_HbT{i} = mean(metadata.spectra.low_NE.HbT, 2);
         spectra.high_NE_HbT{i} = mean(metadata.spectra.high_NE.HbT, 2);
         spectra.NE{i} = metadata.spectra.NE;
-        spectra.SPG_Ca{i} = SPG_Ca;
-        spectra.SPG_HbT{i} = SPG_HbT;
+        spectra.SPG_Ca{i} = mean(SPG_Ca, 3);
+        spectra.SPG_HbT{i} = mean(SPG_HbT, 3);
         
         spectra.Ca{i} = metadata.spectra.Ca;
         spectra.HbT{i} = metadata.spectra.HbT;
