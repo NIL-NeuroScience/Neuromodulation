@@ -294,10 +294,8 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_E.csv'));
 %% Extended Data Fig 2F
 
 run = 67;
-runData = load(...
-    'sub-Thy1-296_ses-24-04-18_run-01_irun-01_behavior+ophys.mat');
 
-Ca = runData.Fig1.Ca_allen;
+Ca = Fig1.Ca_allen{run};
 ACh = GRAB_FC.GRAB{run};
 
 t = 0.1 : 0.1 : 600;
@@ -322,10 +320,8 @@ writetable(T, fullfile(fig_savePath, 'ExtDataFig2_F.csv'));
 %% Extended Data Fig 2G
 
 run = 67;
-runData = load(...
-    'sub-Thy1-296_ses-24-04-18_run-01_irun-01_behavior+ophys.mat');
 
-Ca = runData.Fig1.Ca_allen;
+Ca = Fig1.Ca_allen{run};
 ACh = GRAB_FC.GRAB{run};
 
 lm = fitlm(ACh(:, 5), Ca(:, 5));
@@ -345,6 +341,7 @@ saveas(f, fullfile(fig_savePath, 'ExtDataFig2_G1.svg'));
 T = table(Ca(idx, 5), ACh(idx, 5), ...
     VariableNames = {'Ca_SSpll', 'ACh_SSpll'});
 writetable(T, fullfile(fig_savePath, 'ExtDataFig2_G1.csv'));
+
 
 run = 129;
 runData = load(...

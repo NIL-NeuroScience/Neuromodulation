@@ -5,8 +5,7 @@
 % Organizes analysis .mat files for each figure.
 % 
 % INPUTS: f_organizeData(path)
-%   path: signal to parcellate (H x W x T)
-%   masks: masks to parcellate sig (H x W x N)
+%   path: path to data directory
 % 
 % OUTPUTS:
 %   log: log struct of imaging sessions
@@ -67,7 +66,10 @@ for i = 1:N
     settings.brain_mask{i} = metadata.metadata.settings.brain_mask;
     settings.vessel_mask{i} = metadata.metadata.settings.vessel_mask;
     settings.allen_masks{i} = metadata.metadata.settings.allen_masks;
-
+    
+    Fig1.Ca_allen{i} = metadata.Fig1.Ca_allen;
+    Fig1.HbT_allen{i} = metadata.Fig1.HbT_allen;
+    Fig1.GRAB_allen{i} = metadata.Fig1.GRAB_allen;
     Fig1.inv_perf{i} = metadata.Fig1.IRFx1_inv.perf;
     Fig1.inv_IRF{i} = metadata.Fig1.IRFx1_inv.IRF;
     Fig1.SSp_perf{i} = metadata.Fig1.IRFx1_SSp.perf;
