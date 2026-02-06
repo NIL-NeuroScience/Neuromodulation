@@ -4,20 +4,33 @@
 
 author - Bradley Rauscher (bcraus@bu.edu)
 
-This repository contains code to analyze widefield cortical imaging data. Types of analysis include estimation of convolution kernels, regression, and functional connectivity analysis. Published datasets can be found at https://dandiarchive.org/dandiset/001211. The supporting function f_extractNWB.m can be used to load and extract variables from .nwb files.
+This repository contains code to analyze widefield cortical imaging data. 
+Types of analysis include estimation of convolution kernels, regression, 
+and functional connectivity analysis. Published datasets can be found at 
+[https://dandiarchive.org/dandiset/001543
+](https://dandiarchive.org/dandiset/001543). The supporting function 
+f_extractNWB.m can be used to load and extract variables from .nwb files.
 
 <div align="center">
 <img src="docs/images/Ca_HbT.gif" width="400"/>
 </div>
 
 Used in:
-[Rauscher et al. 2024. "Neurovascular Impulse Response Function (IRF) during spontaneous activity differentially reflects intrinsic neuromodulation across cortical regions". bioRXiv.](https://www.biorxiv.org/content/10.1101/2024.09.14.612514v1.full)
+[Rauscher et al. 2024. "Neurovascular Impulse Response Function (IRF) 
+during spontaneous activity differentially reflects intrinsic 
+neuromodulation across cortical regions". bioRXiv.
+](https://www.biorxiv.org/content/10.1101/2024.09.14.612514v1.full)
 
 ## Contents
 
 MAIN.m - main script which analyzes data for main figures
 
-Utilizes spectral analysis functions *mtspectrumc* and *coherencyc* from the Chronux toolbox (1).
+Figures / MAIN_plotFigures.m - main plotting script which plots all main 
+and extended data figures
+
+Utilizes spectral analysis functions *mtspectrumc* and *coherencyc* from 
+the Chronux toolbox (1).
 
 ## References
-1. H. Bokil et al., "Chronux: a platform for analyzing neural signals," *J Neurosci Methods* **192**(1), 146-151 (2010).
+1. H. Bokil et al., "Chronux: a platform for analyzing neural 
+signals," *J Neurosci Methods* **192**(1), 146-151 (2010).
