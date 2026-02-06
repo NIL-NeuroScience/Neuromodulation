@@ -14,13 +14,12 @@ parentDir = f_path();
 addPaths(parentDir);
 
 % add path to matNWB directory - ignore if matNWB is installed
-addpath('/projectnb/devorlab/bcraus/AnalysisCode/archived_code/new_processing/matnwb');
+% addpath('path_to_matNWB');
 
 %% load nwb file and extract relevant variables
 
 % local path to nwb file directory (load from DANDI archives)
 nwbDir = fullfile(parentDir, 'data');
-nwbDir = '/projectnb/devorlab/bcraus/AnalysisCode/NWB/nwb_files';
 nwb_list = f_sortNWB(nwbDir);
 
 %% define files and input parameters
@@ -296,13 +295,13 @@ for nwbI = 1 : numel(nwb_list)
     
     % xcorr
     [Behavior.XC.rfp_HD_HbT, Behavior.XC.lag] = f_hemLag(rfp_HD, ...
-        HbT_low, fs, [-10, 10], comb_mask);
+        HbT_low, fs * 10, comb_mask);
     [Behavior.XC.gfp_HD_HbT] = f_hemLag( ...
-        gfp_HD, HbT_low, fs, [-10, 10], comb_mask);
+        gfp_HD, HbT_low, fs * 10, comb_mask);
     [Behavior.XC.gfp_HbT] = f_hemLag( ...
-        gfp, HbT_low, fs, [-10, 10], comb_mask);
+        gfp, HbT_low, fs * 10, comb_mask);
     [Behavior.XC.rfp_HD_gfp_HD] = f_hemLag( ...
-        rfp_HD, gfp_HD, fs, [-10, 10], comb_mask);
+        rfp_HD, gfp_HD, fs * 10, comb_mask);
     
     % correlation
     Behavior.R.rfp_HD_low_gfp_HD_low = f_corr( ...
@@ -323,7 +322,8 @@ for nwbI = 1 : numel(nwb_list)
     if string(mouseInfo.GRAB) == "GRAB_NE"
         [Behavior.NE_IRF.perf, Behavior.NE_IRF.IRF] = f_directDeco( ...
             f_bpf(gfp_HD, [0, 0.5], fs, 3), ...
-            rfp_HD, [-5, 10], fs, comb_mask, 4);
+            rfp_HD, fs * [-5, 10], comb_mask, ...
+            ds = 4);
     end
         
     %% Hb and HbO modeling
